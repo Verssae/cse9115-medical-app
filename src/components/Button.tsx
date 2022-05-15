@@ -16,7 +16,7 @@ const Button = ({ children, ratio, onPress }: ButtonProps) => {
         }]}>
             <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.buttonText, {
                 fontSize: ratio * 100,
-                margin: ratio * 5,
+                margin: ratio * 10,
                 color: selected ? colors.white : colors.primary
             }]}>
                 {children}
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderStyle: 'solid',
         borderColor: colors.primary,
-        borderRadius: 32,
+        borderRadius: 20,
         width: '33%',
         height: '50%',
     },

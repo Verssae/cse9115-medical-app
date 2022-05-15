@@ -9,10 +9,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import Human from "../components/Human";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Neck'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
-const NeckScreen = ({route, navigation} : Props) => {
-    // const {parts} = route.params;
+const DetailScreen = ({ route, navigation }: Props) => {
+    const { symptom } = route.params;
+
     const { width } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
@@ -24,7 +25,7 @@ const NeckScreen = ({route, navigation} : Props) => {
             </Prompt>
         </View>
         <View style={styles.humanContainer} >
-            <Human humans={humans.neck} baseWidth={211.33} baseHeight={233.13}/>
+            <Human humans={humans['neck']} baseWidth={211.33} baseHeight={233.13} />
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -32,14 +33,14 @@ const NeckScreen = ({route, navigation} : Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button ratio={width}>
+            <Button ratio={unit}>
                 완료
             </Button>
-            <Button ratio={width} onPress={() => navigation.goBack()}>
+            <Button ratio={unit} onPress={() => navigation.goBack()}>
                 돌아가기
             </Button>
         </View>
     </SafeAreaView>
 }
 
-export default NeckScreen;
+export default DetailScreen;

@@ -6,6 +6,7 @@ import { colors, fonts } from "./src/styles/globalStyles";
 import { RecoilRoot, atom } from "recoil";
 import NeckScreen from "./src/screens/NeckScreen";
 import { RootStackParamList } from "./src/screens/RootStackParams";
+import DetailScreen from "./src/screens/DetailScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -34,6 +35,10 @@ const App = () => {
             options={{
               title: "불편한 목 부위 선택",
             }} />
+            <Stack.Screen
+            name="Detail"
+            component={DetailScreen}
+            options={({route}) => ({title: route.params.symptom})} />
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

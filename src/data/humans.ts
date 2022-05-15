@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from "react-native";
 
-export interface HumanData {
+export interface Parts {
     uri: ImageSourcePropType,
     name: string,
     width: number,
@@ -10,7 +10,11 @@ export interface HumanData {
     disabled?: boolean,
 };
 
-export const humans: HumanData[] = [
+export interface Humans {
+    [key: string]: Parts[]
+};
+
+const body: Parts[] = [
     {
         uri: require('./human/bg.png'),
         name: 'default',
@@ -151,7 +155,7 @@ export const humans: HumanData[] = [
     },
 ];
 
-export const neckParts: HumanData[] = [
+const neck: Parts[] = [
     {
         uri: require('./neck/bg.png'),
         name: 'default',
@@ -201,4 +205,10 @@ export const neckParts: HumanData[] = [
         left: 13.86,
         top: 51.9,
     },
-]
+];
+
+export const humans: Humans = {
+    'body': body,
+    'neck': neck,
+}
+

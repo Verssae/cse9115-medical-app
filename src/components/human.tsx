@@ -3,10 +3,10 @@ import {
     Image, StyleSheet, View, LayoutChangeEvent, Pressable
 } from "react-native";
 import { useRecoilState } from "recoil";
-import { HumanData } from "../data/humans";
+import { Parts } from "../data/humans";
 import { symptomsState } from "../recoil/symptom";
 
-const HumanPart = ({ uri, name, width, height, left, top, disabled }: HumanData) => {
+const HumanPart = ({ uri, name, width, height, left, top, disabled }: Parts) => {
     const [selected, setSelected] = useState(false);
     const [symptoms, setSymptoms] = useRecoilState(symptomsState);
 
@@ -40,7 +40,7 @@ const HumanPart = ({ uri, name, width, height, left, top, disabled }: HumanData)
 };
 
 interface HumanProps {
-    humans: HumanData[],
+    humans: Parts[],
     baseWidth: number,
     baseHeight: number
 }
