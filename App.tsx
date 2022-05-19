@@ -9,10 +9,22 @@ import DetailScreen from "./src/screens/DetailScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(255, 255, 255)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(28, 28, 30)',
+    border: 'rgb(199, 199, 204)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
+
 const App = () => {
   return (
     <RecoilRoot>
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         <Stack.Navigator initialRouteName="Human" screenOptions={{
           headerStyle: {
             backgroundColor: colors.primary,

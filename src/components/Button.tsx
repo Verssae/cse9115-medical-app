@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderStyle: 'solid',
         borderColor: colors.primary,
-        borderRadius: 20,
         width: '33%',
         height: '50%',
     },

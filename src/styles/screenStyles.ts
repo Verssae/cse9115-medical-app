@@ -2,13 +2,13 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 2,
     },
     topPrompt: {
         flex: 2,
     },
     humanContainer: {
-        flex: 7, 
+        flex: 10, 
         alignItems: 'center'
     },
     midPrompt: {
