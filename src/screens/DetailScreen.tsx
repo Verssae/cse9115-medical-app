@@ -13,10 +13,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ route, navigation }: Props) => {
     const { symptom } = route.params;
-
+    console.log(symptom);
     const { width } = useWindowDimensions();
     const unit = width / basicDimensions.width;
-
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
@@ -25,7 +24,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.humanContainer} >
-            <Human humans={humans['neck']} baseWidth={211.33} baseHeight={233.13} />
+            <Human humans={humans['neck']} baseWidth={humans.neck[0].width} baseHeight={humans.neck[0].height} />
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -33,10 +32,10 @@ const DetailScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button ratio={unit}>
+            <Button unit={unit}>
                 완료
             </Button>
-            <Button ratio={unit} onPress={() => navigation.goBack()}>
+            <Button unit={unit} callback={() => navigation.goBack()}>
                 돌아가기
             </Button>
         </View>

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SymptomScreen from "./src/screens/SymptomScreen";
 import { colors, fonts } from "./src/styles/globalStyles";
-import { RecoilRoot, atom } from "recoil";
-import NeckScreen from "./src/screens/NeckScreen";
+import { RecoilRoot } from "recoil";
 import { RootStackParamList } from "./src/screens/RootStackParams";
 import DetailScreen from "./src/screens/DetailScreen";
 
@@ -28,12 +27,6 @@ const App = () => {
             component={SymptomScreen}
             options={{
               title: "불편한 부위 선택",
-            }} />
-          <Stack.Screen
-            name="Neck"
-            component={NeckScreen}
-            options={{
-              title: "불편한 목 부위 선택",
             }} />
             <Stack.Screen
             name="Detail"

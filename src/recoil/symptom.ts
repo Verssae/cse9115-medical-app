@@ -13,8 +13,6 @@ export const strifiedSymptomsState = selector({
             return '어디가 불편하신가요?';
         }
         else {
-            symptoms = symptoms.map(symptom => symptom.replace('왼', ''));
-            symptoms = symptoms.map(symptom => symptom.replace('오른', ''));
             let unique_symptoms = new Set(symptoms)
             return appendIGa(Array.from(unique_symptoms).join(', ')) + ' 불편하시군요';
         }

@@ -35,7 +35,7 @@ const NeckScreen = ({route, navigation} : Props) => {
             <Button ratio={width}>
                 완료
             </Button>
-            <Button ratio={width} onPress={() => navigation.goBack()}>
+            <Button ratio={width} callback={() => navigation.goBack()}>
                 돌아가기
             </Button>
         </View>

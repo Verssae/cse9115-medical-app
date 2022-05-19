@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Image, StyleSheet, View, LayoutChangeEvent, Pressable
 } from "react-native";
 import { useRecoilState } from "recoil";
 import { Parts } from "../data/humans";
 import { symptomsState } from "../recoil/symptom";
+import { colors } from "../styles/globalStyles";
 
 const HumanPart = ({ uri, name, width, height, left, top, disabled }: Parts) => {
     const [selected, setSelected] = useState(false);
@@ -20,7 +21,15 @@ const HumanPart = ({ uri, name, width, height, left, top, disabled }: Parts) => 
                 name
             ]);
         }
-    }
+    };
+
+    useEffect(() => {
+        if (symptoms.includes(name)) {
+            setSelected(true);
+        } else {
+            setSelected(false);
+        }
+    }, [symptoms]);
 
     return (
         <Pressable onPress={onPress}
@@ -28,13 +37,14 @@ const HumanPart = ({ uri, name, width, height, left, top, disabled }: Parts) => 
                 position: 'absolute',
                 left: `${left}%`,
                 top: `${top}%`,
-                opacity: selected ? 0.0 : 1.0
             }}
             disabled={disabled ? true : false}>
-            <Image source={uri} style={{
+            <Image source={uri} style={[{
                 width: width,
-                height: height
-            }} />
+                height: height,
+            }, selected ? {
+                tintColor: colors.selected
+            } : {}]} />
         </Pressable>
     )
 };

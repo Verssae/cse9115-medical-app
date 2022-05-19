@@ -1,22 +1,28 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { StyleSheet, Text, Pressable } from "react-native";
 import { colors, fonts } from "../styles/globalStyles";
 
 interface ButtonProps {
     children?: ReactNode,
-    ratio: number,
-    onPress?: () => void,
-}
+    unit: number,
+    callback?: () => void,
+};
 
-const Button = ({ children, ratio, onPress }: ButtonProps) => {
+const Button = ({ children, unit, callback }: ButtonProps) => {
     const [selected, setSelected] = useState(false);
+    useEffect(() => {
+        if (callback !== undefined && selected) {
+            callback();
+        }
+    }, [selected]);
     return (
-        <Pressable onPressIn={() => setSelected(!selected)} onPress={onPress} onPressOut={() => setSelected(!selected)} style={[styles.button, {
-            backgroundColor: selected ? colors.primary : colors.white
+        <Pressable onPressIn={() => setSelected(!selected)} onPressOut={() => setSelected(!selected)} style={[styles.button, {
+            backgroundColor: selected ? colors.primary : colors.white,
+            borderRadius: unit * 10, 
         }]}>
             <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.buttonText, {
-                fontSize: ratio * 100,
-                margin: ratio * 10,
+                fontSize: unit * 100,
+                margin: unit * 10,
                 color: selected ? colors.white : colors.primary
             }]}>
                 {children}

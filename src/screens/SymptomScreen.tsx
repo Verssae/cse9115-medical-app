@@ -19,15 +19,14 @@ const SymptomScreen = ({navigation} : Props) => {
     const { width } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
-
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
             <Prompt numberOfLines={2} unit={unit}>
-                안녕하세요 <Text style={{ fontFamily: fonts.Pretendard_Black }}>김유신</Text>님! {strSymptoms} 
+                안녕하세요! {strSymptoms} 
             </Prompt>
         </View>
         <View style={styles.humanContainer} >
-            <Human humans={humans.body} baseWidth={317} baseHeight={756}/>
+            <Human humans={humans.body} baseWidth={humans.body[0].width} baseHeight={humans.body[0].height}/>
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -35,12 +34,12 @@ const SymptomScreen = ({navigation} : Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button ratio={unit} onPress={() => {symptoms.length > 0 ? navigation.navigate('Detail', {
-                symptom : `세부 ${symptoms[0]} 증상 선택`,
+            <Button unit={unit} callback={() => {symptoms.length > 0 ? navigation.navigate('Detail', {
+                symptom : `${symptoms[0]} 증상 선택`,
             }) : ''}}>
                 완료
             </Button>
-            <Button ratio={unit} onPress={() => navigation.goBack()}>
+            <Button unit={unit}>
                 돌아가기
             </Button>
         </View>

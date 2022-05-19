@@ -14,9 +14,9 @@ export interface Humans {
     [key: string]: Parts[]
 };
 
-const body: Parts[] = [
+const body_legacy: Parts[] = [
     {
-        uri: require('./human/bg.png'),
+        uri: require('./human_legacy/bg.png'),
         name: 'default',
         width: 317,
         height: 756,
@@ -25,7 +25,7 @@ const body: Parts[] = [
         disabled: true,
     },
     {
-        uri: require('./human/neck.png'),
+        uri: require('./human_legacy/neck.png'),
         name: '목',
         width: 119.81,
         height: 42.46,
@@ -33,7 +33,7 @@ const body: Parts[] = [
         top: 13.22
     },
     {
-        uri: require('./human/chest.png'),
+        uri: require('./human_legacy/chest.png'),
         name: '흉부',
         width: 143.11,
         height: 98.25,
@@ -41,7 +41,7 @@ const body: Parts[] = [
         top: 17.84
     },
     {
-        uri: require('./human/face.png'),
+        uri: require('./human_legacy/face.png'),
         name: '얼굴',
         width: 89.03,
         height: 109.9,
@@ -50,7 +50,7 @@ const body: Parts[] = [
         disabled: true,
     },
     {
-        uri: require('./human/left_arm.png'),
+        uri: require('./human_legacy/left_arm.png'),
         name: '왼팔',
         width: 57.41,
         height: 208.15,
@@ -58,7 +58,7 @@ const body: Parts[] = [
         top: 21.59
     },
     {
-        uri: require('./human/left_shoulder.png'),
+        uri: require('./human_legacy/left_shoulder.png'),
         name: '왼어깨',
         width: 59.49,
         height: 76.6,
@@ -66,7 +66,7 @@ const body: Parts[] = [
         top: 17.51
     },
     {
-        uri: require('./human/left_hand.png'),
+        uri: require('./human_legacy/left_hand.png'),
         name: '왼손',
         width: 58.24,
         height: 74.93,
@@ -74,7 +74,7 @@ const body: Parts[] = [
         top: 48.35
     },
     {
-        uri: require('./human/right_arm.png'),
+        uri: require('./human_legacy/right_arm.png'),
         name: '오른팔',
         width: 58.24,
         height: 206.48,
@@ -82,7 +82,7 @@ const body: Parts[] = [
         top: 21.59
     },
     {
-        uri: require('./human/right_shoulder.png'),
+        uri: require('./human_legacy/right_shoulder.png'),
         name: '오른어깨',
         width: 56.66,
         height: 76.6,
@@ -90,7 +90,7 @@ const body: Parts[] = [
         top: 17.18
     },
     {
-        uri: require('./human/right_hand.png'),
+        uri: require('./human_legacy/right_hand.png'),
         name: '오른손',
         width: 56.58,
         height: 73.27,
@@ -98,7 +98,7 @@ const body: Parts[] = [
         top: 48.57
     },
     {
-        uri: require('./human/body.png'),
+        uri: require('./human_legacy/body.png'),
         name: '몸통',
         width: 131.13,
         height: 96.58,
@@ -106,7 +106,7 @@ const body: Parts[] = [
         top: 29.74
     },
     {
-        uri: require('./human/waist.png'),
+        uri: require('./human_legacy/waist.png'),
         name: '허리',
         width: 122.86,
         height: 23.31,
@@ -114,7 +114,7 @@ const body: Parts[] = [
         top: 42.51
     },
     {
-        uri: require('./human/hip.png'),
+        uri: require('./human_legacy/hip.png'),
         name: '엉덩이',
         width: 133.12,
         height: 78.26,
@@ -122,7 +122,7 @@ const body: Parts[] = [
         top: 45.59
     },
     {
-        uri: require('./human/thigh.png'),
+        uri: require('./human_legacy/thigh.png'),
         name: '허벅지',
         width: 132.15,
         height: 112.4,
@@ -130,7 +130,7 @@ const body: Parts[] = [
         top: 55.95
     },
     {
-        uri: require('./human/knee.png'),
+        uri: require('./human_legacy/knee.png'),
         name: '무릎',
         width: 101.04,
         height: 26.64,
@@ -138,7 +138,7 @@ const body: Parts[] = [
         top: 70.81
     },
     {
-        uri: require('./human/leg.png'),
+        uri: require('./human_legacy/leg.png'),
         name: '종아리',
         width: 104.83,
         height: 144.87,
@@ -146,7 +146,7 @@ const body: Parts[] = [
         top: 74.34
     },
     {
-        uri: require('./human/foot.png'),
+        uri: require('./human_legacy/foot.png'),
         name: '발',
         width: 104.83,
         height: 49.96,
@@ -154,6 +154,73 @@ const body: Parts[] = [
         top: 93.39
     },
 ];
+
+const body: Parts[] = [
+    {
+        uri: require('./Human/Human-1.png'),
+        name: 'default',
+        width: 559,
+        height: 1286,
+        left: 0,
+        top: 0,
+        disabled: true,
+    },
+    {
+        uri: require('./Human/legs.png'),
+        name: '다리',
+        width: 237,
+        height: 559,
+        left: 27.91,
+        top: 54.43,
+        disabled: false,
+    },
+    {
+        uri: require('./Human/stomach.png'),
+        name: '복부',
+        width: 230,
+        height: 267,
+        left: 27.91,
+        top: 35.54,
+        disabled: false,
+    },
+    {
+        uri: require('./Human/chest.png'),
+        name: '흉부',
+        width: 320,
+        height: 288,
+        left: 19.68,
+        top: 14.46,
+        disabled: false,
+    },
+    {
+        uri: require('./Human/arms-r.png'),
+        name: '팔',
+        width: 151,
+        height: 467,
+        left: 2.33,
+        top: 21.46,
+        disabled: false,
+    },
+    {
+        uri: require('./Human/arms-l.png'),
+        name: '팔',
+        width: 157,
+        height: 467,
+        left: 67.62,
+        top: 21.46,
+        disabled: false,
+    },
+    {
+        uri: require('./Human/Head.png'),
+        name: '머리',
+        width: 161,
+        height: 196,
+        left: 34.53,
+        top: 1.32,
+        disabled: true,
+    },
+];
+
 
 const neck: Parts[] = [
     {
@@ -206,6 +273,8 @@ const neck: Parts[] = [
         top: 51.9,
     },
 ];
+
+
 
 export const humans: Humans = {
     'body': body,
