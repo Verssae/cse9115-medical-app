@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     },
     humanContainer: {
         flex: 10, 
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 20
     },
     midPrompt: {
         flex: 1,

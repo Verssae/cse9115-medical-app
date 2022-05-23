@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SymptomScreen from "./src/screens/SymptomScreen";
+import SymptomScreen from "./src/screens/OverviewScreen";
 import { colors, fonts } from "./src/styles/globalStyles";
 import { RecoilRoot } from "recoil";
 import { RootStackParamList } from "./src/screens/RootStackParams";
@@ -25,7 +25,7 @@ const App = () => {
   return (
     <RecoilRoot>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName="Human" screenOptions={{
+        <Stack.Navigator initialRouteName="Overview" screenOptions={{
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -35,15 +35,18 @@ const App = () => {
           },
         }}>
           <Stack.Screen
-            name="Human"
+            name="Overview"
             component={SymptomScreen}
+            initialParams={{
+              faced: true,
+            }}
             options={{
               title: "불편한 부위 선택",
             }} />
             <Stack.Screen
             name="Detail"
             component={DetailScreen}
-            options={({route}) => ({title: route.params.symptom})} />
+            options={({route}) => ({title: route.params.part})} />
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

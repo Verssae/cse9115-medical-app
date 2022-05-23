@@ -1,20 +1,20 @@
 import { atom, selector } from "recoil";
+import { Parts } from "../data/humans";
 
-export const symptomsState = atom<string[]>({
+export const symptomsState = atom<Pick<Parts, 'name' | 'direction'>[]>({
     key: 'symptomState',
     default: [],
 });
 
 export const strifiedSymptomsState = selector({
     key: 'strifiedSymptomsState',
-    get: ({get}) => {
-        let symptoms = get(symptomsState);
+    get: ({ get }) => {
+        const symptoms = get(symptomsState);
         if (symptoms.length === 0) {
             return '어디가 불편하신가요?';
         }
         else {
-            let unique_symptoms = new Set(symptoms)
-            return appendIGa(Array.from(unique_symptoms).join(', ')) + ' 불편하시군요';
+            return appendIGa(JSON.stringify(symptoms));
         }
     }
 });
@@ -22,7 +22,7 @@ export const strifiedSymptomsState = selector({
 function isEndWithConsonant(str: string) {
     const finalChrCode = str.charCodeAt(str.length - 1);
     const finalConsonantCode = (finalChrCode - 44032) % 28;
-    return finalConsonantCode !== 0; 
+    return finalConsonantCode !== 0;
 };
 
 function appendIGa(str: string) {

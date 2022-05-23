@@ -1,7 +1,9 @@
 export type RootStackParamList = {
-    Human: undefined;
+    Overview: {
+        faced: boolean
+    };
     Detail: {
-        symptom: string
+        part: string
     };
     Neck: undefined;
 }
