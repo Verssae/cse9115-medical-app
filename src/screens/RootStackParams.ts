@@ -5,5 +5,8 @@ export type RootStackParamList = {
     Detail: {
         part: string
     };
-    Neck: undefined;
+    ElbowTest: undefined;
+    Pain: {
+        test?: string
+    };
 }

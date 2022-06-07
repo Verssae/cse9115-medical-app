@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, Text, useWindowDimensions, View } from "react-native";
+import React, { useState } from "react";
+import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import Human from "../components/Human";
 import { basicDimensions, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
@@ -18,10 +18,16 @@ const SymptomScreen = ({ navigation, route }: Props) => {
     const direction = faced ? 'frontView' : 'backView';
     const strSymptoms = useRecoilValue(strifiedSymptomsState);
     const symptoms = useRecoilValue(symptomsState);
-    const { width } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
-
+    const [parentDimensions, setParentDimensions] = useState({
+        width: 0,
+        height: 0,
+        x: 0,
+        y:0,
+    });
     console.log(symptoms);
+    console.log("width: " + width, "height: " + height);
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
@@ -29,8 +35,8 @@ const SymptomScreen = ({ navigation, route }: Props) => {
                 안녕하세요! {strSymptoms}
             </Prompt>
         </View>
-        <View style={styles.humanContainer} >
-            <Human humans={humans[direction]} baseWidth={humans[direction][0].width} baseHeight={humans[direction][0].height} />
+        <View style={styles.humanContainer} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
+            <Human parts={humans[direction]} baseWidth={humans[direction][0].width} baseHeight={humans[direction][0].height} parentDimensions={parentDimensions} />
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>

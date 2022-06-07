@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {
-    Image, StyleSheet, View, LayoutChangeEvent, Pressable
+    Image, StyleSheet, View, LayoutChangeEvent, Pressable, useWindowDimensions, LayoutRectangle
 } from "react-native";
 import { useRecoilState } from "recoil";
-import { Parts } from "../data/humans";
+import { Part } from "../data/humans";
 import { symptomsState } from "../recoil/symptom";
 import { colors } from "../styles/globalStyles";
 
-const HumanPart = ({ uri, name, direction, width, height, left, top, disabled }: Parts) => {
+const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled }: Part) => {
     const [selected, setSelected] = useState(false);
     const [symptoms, setSymptoms] = useRecoilState(symptomsState);
 
-    const cmp = (x: Pick<Parts, "direction" | "name">) => x.name === name && x.direction === direction
+    const cmp = (x: Pick<Part, "direction" | "name">) => x.name === name && x.direction === direction
 
     const onPress = () => {
         setSelected(!selected);
-        
+
         if (symptoms.some(cmp)) {
             console.log(`${name} ${direction}`);
             setSymptoms(symptoms.filter(symptom => !cmp(symptom)))
@@ -23,7 +23,7 @@ const HumanPart = ({ uri, name, direction, width, height, left, top, disabled }:
         } else {
             setSymptoms([
                 ...symptoms,
-                { name: name, direction: direction}
+                { name: name, direction: direction }
             ]);
         }
     };
@@ -54,41 +54,32 @@ const HumanPart = ({ uri, name, direction, width, height, left, top, disabled }:
     )
 };
 
-interface HumanProps {
-    humans: Parts[],
+const Human = ({ parts, baseWidth, baseHeight, parentDimensions }: {
+    parts: Part[],
     baseWidth: number,
-    baseHeight: number
-}
+    baseHeight: number,
+    parentDimensions: LayoutRectangle
+}) => {
+    let { width, height } = parentDimensions;
+    
+    width = width * baseHeight / baseWidth > height ? height  * baseWidth / baseHeight : width;
+    height = height * baseWidth / baseHeight > width ? width * baseHeight / baseWidth : height;
 
-const Human = ({humans, baseWidth, baseHeight} : HumanProps) => {
-    const [size, setSize] = useState({
-        width: 0,
-        height: 0
-    });
-    const ratio = baseWidth / baseHeight;
-
-    const getSize = (old: number) => old * size.width / baseWidth
+    const resize = (old: number) => baseWidth > baseHeight ? old * width / baseWidth : old * height / baseHeight;
 
     return (
-        <View onLayout={(e: LayoutChangeEvent) => setSize({ ...e.nativeEvent.layout })} style={[styles.container, {
-            width: size.height * ratio
-        }]}>
-            {humans.map((data, i) => (
-                <HumanPart key={i} {...{ ...data, width: getSize(data.width), height: getSize(data.height) }} />
+        <View style={{
+            width: baseWidth > baseHeight ? width : height * baseWidth / baseHeight,
+            height: baseWidth > baseHeight ? width * baseHeight / baseWidth : height,
+        }}>
+            
+            {parts.map((data, i) => (
+                <HumanPartImage key={i} {...{ ...data, width: resize(data.width), height: resize(data.height) }} />
             ))}
         </View>
     )
 };
 
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-        // backgroundColor: 'white',
-    },
-    img: {
-        position: 'absolute',
-    }
-});
+
 
 export default Human;

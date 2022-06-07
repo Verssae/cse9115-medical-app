@@ -6,6 +6,8 @@ import { colors, fonts } from "./src/styles/globalStyles";
 import { RecoilRoot } from "recoil";
 import { RootStackParamList } from "./src/screens/RootStackParams";
 import DetailScreen from "./src/screens/DetailScreen";
+import ElbowTestScreen from "./src/screens/ElbowTestScreen";
+import PainScreen from "./src/screens/PainScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -47,6 +49,14 @@ const App = () => {
             name="Detail"
             component={DetailScreen}
             options={({route}) => ({title: route.params.part})} />
+            <Stack.Screen
+            name="ElbowTest"
+            component={ElbowTestScreen}
+            options={({route}) => ({title: "팔꿈치 모션 테스트"})} />
+            <Stack.Screen
+            name="Pain"
+            component={PainScreen}
+            options={({route}) => ({title: "통증 정도 선택"})} />
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

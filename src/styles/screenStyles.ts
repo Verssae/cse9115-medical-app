@@ -2,15 +2,15 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 2,
+        flex: 1,
     },
     topPrompt: {
         flex: 2,
     },
     humanContainer: {
-        flex: 10, 
+        flex: 8, 
         alignItems: 'center',
-        padding: 20
+        
     },
     midPrompt: {
         flex: 1,

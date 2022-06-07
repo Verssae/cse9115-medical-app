@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { Parts } from "../data/humans";
+import { Part, ToKorean } from "../data/humans";
 
-export const symptomsState = atom<Pick<Parts, 'name' | 'direction'>[]>({
+export const symptomsState = atom<Pick<Part, 'name' | 'direction'>[]>({
     key: 'symptomState',
     default: [],
 });
@@ -14,7 +14,8 @@ export const strifiedSymptomsState = selector({
             return '어디가 불편하신가요?';
         }
         else {
-            return appendIGa(JSON.stringify(symptoms));
+            let converts = symptoms.map(({name, direction}) => ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : name);
+            return appendIGa(converts.join(', ')) + ' 불편하시군요';
         }
     }
 });

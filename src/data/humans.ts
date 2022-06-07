@@ -10,7 +10,7 @@ export type BodyNames = ChestNames | BackNames | LegNames | WaistNames | ArmName
 
 type Direction = 'left' | 'right';
 
-export interface Parts {
+export interface Part {
     uri: ImageSourcePropType,
     name: BodyNames,
     direction?: Direction,
@@ -18,14 +18,14 @@ export interface Parts {
     height: number,
     left: number,
     top: number,
-    disabled: boolean,
+    disabled?: boolean,
 };
 
-export interface Humans {
-    [key: string]: Parts[]
+export interface Parts {
+    [key: string]: Part[]
 };
 
-const chest: Parts[] = [
+const chest: Part[] = [
     {
         uri: require('./Chest/chest-1.png'),
         name: '흉부',
@@ -138,7 +138,7 @@ const chest: Parts[] = [
     },
 ];
 
-const backView: Parts[] = [
+const backView: Part[] = [
     {
         uri: require('./BackView/body.png'),
         name: '신체',
@@ -217,7 +217,7 @@ const backView: Parts[] = [
     },
 ];
 
-const frontView: Parts[] = [
+const frontView: Part[] = [
     {
         uri: require('./FrontView/body.png'),
         name: '신체',
@@ -296,7 +296,7 @@ const frontView: Parts[] = [
     },
 ];
 
-const arm: Parts[] = [
+const arm: Part[] = [
     {
         uri: require('./Arm/1.png'),
         name: '팔',
@@ -408,7 +408,7 @@ const arm: Parts[] = [
     },
 ];
 
-const leg: Parts[] = [
+const leg: Part[] = [
     {
         uri: require('./Leg/1.png'),
         name: '다리',
@@ -521,7 +521,7 @@ const leg: Parts[] = [
     },
 ];
 
-const back: Parts[] = [
+const back: Part[] = [
     {
         uri: require('./Back/1.png'),
         name: '등',
@@ -575,7 +575,7 @@ const back: Parts[] = [
 
 ];
 
-const waist: Parts[] = [
+const waist: Part[] = [
     {
         uri: require('./Waist/1.png'),
         name: 'waist',
@@ -639,7 +639,7 @@ const waist: Parts[] = [
 
 ];
 
-export const humans: Humans = {
+export const humans: Parts = {
     'frontView': frontView,
     'backView': backView,
     'chest': chest,
@@ -649,3 +649,16 @@ export const humans: Humans = {
     'waist': waist
 }
 
+interface TranslateName {
+    [key: string]: string
+}
+
+export const ToKorean: TranslateName = {
+    'leftarm': '왼팔',
+    'rightarm': '오른팔',
+    'leftleg': '왼쪽 다리',
+    'rightleg': '오른쪽 다리',
+    'back': '등',
+    'waist': '허리',
+    'chest': '가슴'
+};

@@ -1,5 +1,5 @@
-import React from "react";
-import { SafeAreaView, Text, useWindowDimensions, View } from "react-native";
+import React, { useState } from "react";
+import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import { basicDimensions, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
 import Button from "../components/Button";
@@ -18,9 +18,15 @@ const DetailScreen = ({ route, navigation }: Props) => {
     const strSymptoms = useRecoilValue(strifiedSymptomsState);
     const symptoms = useRecoilValue(symptomsState);
     const { width } = useWindowDimensions();
+    const [parentDimensions, setParentDimensions] = useState({
+        width: 0,
+        height: 0,
+        x: 0,
+        y:0,
+    });
     const unit = width / basicDimensions.width;
 
-    console.log(symptoms);
+    // console.log(parentDimensions);
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
@@ -28,8 +34,10 @@ const DetailScreen = ({ route, navigation }: Props) => {
                 {strSymptoms}
             </Prompt>
         </View>
-        <View style={styles.humanContainer} >
-            <Human humans={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} />
+        <View style={[styles.humanContainer, {
+            // margin: 15,
+        }]} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
+            <Human parts={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} parentDimensions={parentDimensions} />
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -37,7 +45,13 @@ const DetailScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit}>
+            <Button unit={unit} callback={() => {
+                if (symptoms.find(({name}) => name === "팔꿈치")){
+                    navigation.navigate("ElbowTest");
+                } else {
+                    navigation.navigate("Pain", {});
+                }
+            }}>
                 완료
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
