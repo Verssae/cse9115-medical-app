@@ -58,7 +58,7 @@ const SymptomScreen = ({ navigation, route }: Props) => {
                         rate: 0.9,
                     })
             }>
-                완료
+                다음
             </Button>
             <Button unit={unit} callback={
                 faced ? undefined : () => navigation.goBack()

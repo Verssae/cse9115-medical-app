@@ -9,6 +9,8 @@ import DetailScreen from "./src/screens/DetailScreen";
 import ElbowTestScreen from "./src/screens/ElbowTestScreen";
 import PainScreen from "./src/screens/PainScreen";
 import SelectScreen from "./src/screens/SelectScreen";
+import StabilityScreen from "./src/screens/StabilityScreen";
+import { ToKorean } from "./src/data/humans";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,17 +51,23 @@ const App = () => {
             <Stack.Screen
             name="Detail"
             component={DetailScreen}
-            options={({route}) => ({title: route.params.part})} />
+            options={({route}) => ({title: '불편한 '+(['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(route.params.part) ? ToKorean[(route.params.part)] : route.params.part) + ' 부위 선택' })} />
             <Stack.Screen
             name="ElbowTest"
             component={ElbowTestScreen}
-            options={({route}) => ({title: "팔꿈치 모션 테스트"})} />
+            options={({route}) => ({title: "팔꿈치 움직임 테스트"})} />
             <Stack.Screen
             name="Pain"
             component={PainScreen}
             options={({route}) => ({title: "통증 정도 선택"})} />
             <Stack.Screen
+            name="Stability"
+            options={({route}) => ({title: "관절 안정성 테스트"})}
+            component={StabilityScreen}
+            />
+            <Stack.Screen
             name="ElbowFunction"
+            options={({route}) => ({title: "팔꿈치 기능 테스트"})}
             component={SelectScreen}
             />
         </Stack.Navigator>

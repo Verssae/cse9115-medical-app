@@ -9,5 +9,6 @@ export type RootStackParamList = {
     Pain: {
         test?: string
     };
+    Stability: undefined;
     ElbowFunction: undefined;
 }

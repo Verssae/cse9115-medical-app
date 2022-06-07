@@ -111,10 +111,8 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={() => navigation.navigate("Pain", {
-                test: "Elbow"
-            })}>
-                완료
+            <Button unit={unit} callback={() => navigation.navigate("Stability")}>
+                다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
                 돌아가기

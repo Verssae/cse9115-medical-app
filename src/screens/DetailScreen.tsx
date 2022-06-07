@@ -32,6 +32,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
     // console.log(parentDimensions);
     let name = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part;
     let verse = `${name} 중에서 어느 부위가 불편하신가요?`;
+
     useEffect(() => {
         Speech.speak(verse, {
             rate: 0.9
@@ -56,13 +57,11 @@ const DetailScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.footer}>
             <Button unit={unit} callback={() => {
-                if (symptoms.find(({ name }) => name === "팔꿈치")) {
-                    navigation.navigate("ElbowTest");
-                } else {
-                    navigation.navigate("Pain", {});
-                }
+                navigation.navigate("Pain", {
+                    test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
+                })
             }}>
-                완료
+                다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
                 돌아가기

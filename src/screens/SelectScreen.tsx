@@ -79,7 +79,7 @@ const SelectScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.footer}>
             <Button unit={unit}>
-                완료
+                다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
                 돌아가기

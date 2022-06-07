@@ -11,19 +11,18 @@ import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Pain'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Stability'>;
 
-const PainScreen = ({ route, navigation }: Props) => {
-    const { test } = route.params;
+const Stability = ({ route, navigation }: Props) => {
     const [state, setState] = useState({
-        value: 1
+        value: 0
     });
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
-    const indicators = ["없음", "가벼움", "보통", "심각"]
+    const indicators = ["안정적", "불안정", "극심한 불안정"]
 
-    const prompts = ["통증이 얼마나 아프신가요?", "버튼을 좌우로 움직여 통증을 표시해주세요"];
+    const prompts = ["방금 팔을 움직이실 때 안정적으로 잘 움직이셨나요?", "버튼을 좌우로 움직여 안정성을 표시해주세요"];
 
     useEffect(() => {
         Speech.speak(prompts[0], {
@@ -56,11 +55,11 @@ const PainScreen = ({ route, navigation }: Props) => {
                 textAlign: 'center',
                 marginTop: 10
             }}>
-                {indicators[state.value / 15]}
+                {indicators[state.value / 5]}
             </Text>
             <Slider value={state.value} onValueChange={(value) => setState({
                 value: typeof value === "number" ? value : value[0]
-            })} maximumValue={45} minimumValue={0} step={15}
+            })} maximumValue={10} minimumValue={0} step={5}
                 renderTrackMarkComponent={(idx) => <View style={{
                     transform: [{translateY: unit * 10}]
                 }}><View style={{
@@ -80,7 +79,7 @@ const PainScreen = ({ route, navigation }: Props) => {
                         }]
                     }}>{idx}</Text>
                 </View>}
-                trackMarks={[0, 15, 30, 45]}
+                trackMarks={[0, 5, 10]}
 
                 trackStyle={{
                    
@@ -103,7 +102,7 @@ const PainScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={test === 'ElbowTest' ? () => navigation.navigate('ElbowTest') : undefined}>
+            <Button unit={unit} callback={() => navigation.navigate('ElbowFunction')}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
@@ -113,4 +112,4 @@ const PainScreen = ({ route, navigation }: Props) => {
     </SafeAreaView>
 }
 
-export default PainScreen;
+export default Stability;
