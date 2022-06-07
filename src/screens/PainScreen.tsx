@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import { basicDimensions, colors, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
-import Button from "../components/Button";
+import {Button} from "../components/Button";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
 import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
+import *  as Speech from 'expo-speech';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Pain'>;
 
 const PainScreen = ({ route, navigation }: Props) => {
-    
+    const { test } = route.params;
     const [state, setState] = useState({
         value: 1
     });
@@ -22,10 +23,25 @@ const PainScreen = ({ route, navigation }: Props) => {
 
     const indicators = ["거의 안 아픔", "조금 아픔", "꽤 아픔", "상당히 아픔", "매우 아픔"]
 
+    const prompts = ["통증이 얼마나 아프신가요?", "버튼을 좌우로 움직여 통증을 표시해주세요"];
+
+    useEffect(() => {
+        Speech.speak(prompts[0], {
+            rate: 0.9,
+            onDone: () => {
+                Speech.pause()
+                let timer = setTimeout(() => {
+                    Speech.speak(prompts[1], { rate: 0.9 });
+                    clearTimeout(timer);
+                }, 2000);
+            }
+        });
+    }, []);
+
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
             <Prompt numberOfLines={2} unit={unit}>
-                통증이 얼마나 아프신가요?
+                {prompts[0]}
             </Prompt>
         </View>
 
@@ -83,11 +99,11 @@ const PainScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
-                버튼을 좌우로 움직여 통증을 표시해주세요
+                {prompts[1]}
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit}>
+            <Button unit={unit} callback={test ? () => navigation.navigate('ElbowFunction') : undefined}>
                 완료
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

@@ -8,7 +8,7 @@ interface ButtonProps {
     callback?: () => void,
 };
 
-const Button = ({ children, unit, callback }: ButtonProps) => {
+export const Button = ({ children, unit, callback }: ButtonProps) => {
     const [selected, setSelected] = useState(false);
     useEffect(() => {
         if (callback !== undefined && selected) {
@@ -21,9 +21,33 @@ const Button = ({ children, unit, callback }: ButtonProps) => {
             borderRadius: unit * 10, 
         }]}>
             <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.buttonText, {
-                fontSize: unit * 100,
-                margin: unit * 10,
+                fontSize: unit * 40,
+                margin: unit * 5,
                 color: selected ? colors.white : colors.primary
+            }]}>
+                {children}
+            </Text>
+        </Pressable>
+    )
+};
+
+export const LargeButton = ({ children, unit, callback }: ButtonProps) => {
+    const [selected, setSelected] = useState(false);
+    useEffect(() => {
+        if (callback !== undefined && selected) {
+            callback();
+        }
+    }, [selected]);
+    return (
+        <Pressable onPressIn={() => setSelected(!selected)} style={[styles.largeButton, {
+            backgroundColor: selected ? colors.primary : colors.white,
+            borderRadius: unit * 10, 
+            margin: 10
+        }]}>
+            <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.buttonText, {
+                fontSize: unit * 5 + 30,
+                margin: unit * 5 + 5,
+                color: selected ? colors.white : colors.black
             }]}>
                 {children}
             </Text>
@@ -35,7 +59,7 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 2,
+        borderWidth: 3,
         borderStyle: 'solid',
         borderColor: colors.primary,
         width: '33%',
@@ -44,7 +68,12 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: fonts.Pretendard_Bold,
         color: colors.primary,
-    }
+    },
+    largeButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderStyle: 'solid',
+        borderColor: colors.primary,
+    },
 });
-
-export default Button;

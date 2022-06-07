@@ -6,10 +6,10 @@ import { styles } from "../styles/screenStyles";
 const ElbowPartImage = ({ uri, name, width, height, left, top, rotate, deg }: ElbowPart) => {
     let degree = deg ?? 0
     let behinds = ["AngleRed", "AngleOrange"];
-    if (degree < 60) {
+    if (degree < 50) {
         behinds = ["AngleOrange", "AngleBlue"];
     }
-    else if (degree < 120) {
+    else if (degree < 100) {
         behinds = ["AngleRed", "AngleBlue"];
     }
     else {

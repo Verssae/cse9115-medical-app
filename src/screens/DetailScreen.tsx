@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import { basicDimensions, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
-import Button from "../components/Button";
-import { humans } from "../data/humans";
+import { Button } from "../components/Button";
+import { humans, ToKorean } from "../data/humans";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import Human from "../components/Human";
 import { useRecoilValue } from "recoil";
 import { strifiedSymptomsState, symptomsState } from "../recoil/symptom";
+import * as Speech from 'expo-speech';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
@@ -22,16 +23,25 @@ const DetailScreen = ({ route, navigation }: Props) => {
         width: 0,
         height: 0,
         x: 0,
-        y:0,
+        y: 0,
     });
     const unit = width / basicDimensions.width;
-
+    // navigation.setOptions({
+    //     title: ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part
+    // });
     // console.log(parentDimensions);
+    let name = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part;
+    let verse = `${name} 중에서 어느 부위가 불편하신가요?`;
+    useEffect(() => {
+        Speech.speak(verse, {
+            rate: 0.9
+        });
+    }, []);
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
             <Prompt numberOfLines={2} unit={unit}>
-                {strSymptoms}
+                {verse}
             </Prompt>
         </View>
         <View style={[styles.humanContainer, {
@@ -46,7 +56,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.footer}>
             <Button unit={unit} callback={() => {
-                if (symptoms.find(({name}) => name === "팔꿈치")){
+                if (symptoms.find(({ name }) => name === "팔꿈치")) {
                     navigation.navigate("ElbowTest");
                 } else {
                     navigation.navigate("Pain", {});

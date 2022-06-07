@@ -15,10 +15,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3559C9D8219B4346B583823F /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 329BE998C7844924B33010A4 /* Pretendard-Light.otf */; };
+		3B2EE68C59B2160084C9A086 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14E3F94DC8B7C088C081EB9 /* ExpoModulesProvider.swift */; };
 		4A8B8724A1E545C78A173A4C /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0FF9C4C299414C03A9A58214 /* Pretendard-Thin.otf */; };
 		6213414C52CC43E7A296D72C /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4D0421764604D96A0D41EFA /* PretendardVariable.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Medical-MedicalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Medical-MedicalTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8567816249BFDF6417BEE41E /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD70D4C55A451991B952AF7 /* ExpoModulesProvider.swift */; };
 		9BCDBC8D2BBE4435994D9325 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8FBCE4E15F5A4B8A9279990A /* Pretendard-ExtraLight.otf */; };
 		A77B870A0C19466C91A29EC3 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C6920BC47C044D585F59369 /* Pretendard-ExtraBold.otf */; };
 		B4CFE0CBC159422489FF52B4 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 971F1F5BC9CE491E9A538923 /* Pretendard-SemiBold.otf */; };
@@ -62,8 +64,10 @@
 		9C6920BC47C044D585F59369 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		A46D2AA17BB548E8B4037E05 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		A4D0421764604D96A0D41EFA /* PretendardVariable.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = PretendardVariable.ttf; path = ../assets/fonts/PretendardVariable.ttf; sourceTree = "<group>"; };
+		B14E3F94DC8B7C088C081EB9 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Medical-MedicalTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		BD795D3C6B3E4E25914D7B67 /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDD70D4C55A451991B952AF7 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Medical/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				B03E2AB9B5A04286829CCB7C /* Resources */,
+				9798B49080F59CF75765A23F /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -156,6 +161,15 @@
 				00E356EE1AD99517003FC87E /* MedicalTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9798B49080F59CF75765A23F /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				BB669CD93A02962C1D9A669C /* Medical */,
+				DBC94EA8BCC009D14B11E753 /* MedicalTests */,
+			);
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 		B03E2AB9B5A04286829CCB7C /* Resources */ = {
@@ -176,6 +190,14 @@
 			path = "";
 			sourceTree = "<group>";
 		};
+		BB669CD93A02962C1D9A669C /* Medical */ = {
+			isa = PBXGroup;
+			children = (
+				EDD70D4C55A451991B952AF7 /* ExpoModulesProvider.swift */,
+			);
+			name = Medical;
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +207,14 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-Medical-MedicalTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DBC94EA8BCC009D14B11E753 /* MedicalTests */ = {
+			isa = PBXGroup;
+			children = (
+				B14E3F94DC8B7C088C081EB9 /* ExpoModulesProvider.swift */,
+			);
+			name = MedicalTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* MedicalTests.m in Sources */,
+				3B2EE68C59B2160084C9A086 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +492,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				8567816249BFDF6417BEE41E /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,7 +517,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MedicalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -496,6 +528,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Medical.app/Medical";
@@ -509,7 +542,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = MedicalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,6 +553,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Medical.app/Medical";
@@ -544,6 +578,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Medical;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -570,6 +605,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Medical;
 				SWIFT_VERSION = 5.0;
@@ -627,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -691,7 +727,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",

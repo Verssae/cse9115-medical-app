@@ -11,11 +11,11 @@ export const strifiedSymptomsState = selector({
     get: ({ get }) => {
         const symptoms = get(symptomsState);
         if (symptoms.length === 0) {
-            return '어디가 불편하신가요?';
+            return '안녕하세요! 어디가 불편하신가요?';
         }
         else {
             let converts = symptoms.map(({name, direction}) => ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : name);
-            return appendIGa(converts.join(', ')) + ' 불편하시군요';
+            return appendIGa(converts.join(', ')) + ' 불편하시군요?';
         }
     }
 });

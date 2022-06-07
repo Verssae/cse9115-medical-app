@@ -8,6 +8,7 @@ import { RootStackParamList } from "./src/screens/RootStackParams";
 import DetailScreen from "./src/screens/DetailScreen";
 import ElbowTestScreen from "./src/screens/ElbowTestScreen";
 import PainScreen from "./src/screens/PainScreen";
+import SelectScreen from "./src/screens/SelectScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -57,6 +58,10 @@ const App = () => {
             name="Pain"
             component={PainScreen}
             options={({route}) => ({title: "통증 정도 선택"})} />
+            <Stack.Screen
+            name="ElbowFunction"
+            component={SelectScreen}
+            />
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

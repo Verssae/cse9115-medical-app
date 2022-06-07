@@ -2,6 +2,7 @@ export const colors = {
     primary: '#0659FD',
     white: 'white',
     selected: 'rgba(254,74,74,0.6)',
+    black: 'black'
 };
 
 export const fonts = {

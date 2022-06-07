@@ -660,5 +660,9 @@ export const ToKorean: TranslateName = {
     'rightleg': '오른쪽 다리',
     'back': '등',
     'waist': '허리',
-    'chest': '가슴'
+    'chest': '가슴',
+    'arm': '팔',
+    'leg': '다리',
+    'left': '왼쪽 ',
+    'right': '오른쪽'
 };

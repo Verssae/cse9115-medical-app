@@ -3,9 +3,10 @@ import {
     Image, StyleSheet, View, LayoutChangeEvent, Pressable, useWindowDimensions, LayoutRectangle
 } from "react-native";
 import { useRecoilState } from "recoil";
-import { Part } from "../data/humans";
+import { Part, ToKorean } from "../data/humans";
 import { symptomsState } from "../recoil/symptom";
 import { colors } from "../styles/globalStyles";
+import * as Speech from 'expo-speech';
 
 const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled }: Part) => {
     const [selected, setSelected] = useState(false);
@@ -15,12 +16,18 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
 
     const onPress = () => {
         setSelected(!selected);
-
+        let verse = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name;
         if (symptoms.some(cmp)) {
-            console.log(`${name} ${direction}`);
+            
+            Speech.speak(verse + " 취소", {
+                rate: 0.8
+            });
             setSymptoms(symptoms.filter(symptom => !cmp(symptom)))
-            // setSymptoms(symptoms.filter((symptom) => (symptom.name !== name) && (symptom.direction !== direction)));
         } else {
+            
+            Speech.speak(verse, {
+                rate: 0.8
+            });
             setSymptoms([
                 ...symptoms,
                 { name: name, direction: direction }
@@ -31,6 +38,7 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
     useEffect(() => {
         if (symptoms.some(cmp)) {
             setSelected(true);
+            
         } else {
             setSelected(false);
         }

@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
-import { fonts } from "../styles/globalStyles"
+import { fonts } from "../styles/globalStyles";
+import * as Speech from 'expo-speech'
 
 interface PromptProps {
     children: ReactNode,
@@ -10,8 +11,9 @@ interface PromptProps {
     style?: StyleProp<TextStyle>
 };
 
-const Prompt = ({ children, numberOfLines, unit, underline, style }: PromptProps) => (
-    <Text adjustsFontSizeToFit numberOfLines={numberOfLines} style={[underline ? {
+const Prompt = ({ children, numberOfLines, unit, underline, style }: PromptProps) => {
+
+    return <Text adjustsFontSizeToFit numberOfLines={numberOfLines} style={[underline ? {
         fontFamily: fonts.Pretendard_Medium,
         textDecorationLine: 'underline',
         fontSize: unit * 100,
@@ -25,6 +27,6 @@ const Prompt = ({ children, numberOfLines, unit, underline, style }: PromptProps
     }, style]}>
         {children}
     </Text>
-);
+};
 
 export default Prompt;
