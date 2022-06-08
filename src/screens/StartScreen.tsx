@@ -10,28 +10,26 @@ import *  as Speech from 'expo-speech';
 import { historyDuration } from "../data/selectables";
 import { useRecoilState } from "recoil";
 import { homeState } from "../recoil/states";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
 
-const SelectScreen = ({ route, navigation }: Props) => {
+const StartScreen = ({ route, navigation }: Props) => {
     const [home, setHome] = useRecoilState(homeState)
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
-    const prompts = ["안녕하세요? 예진을 시작하겠습니다.", "아직 내원 전이시면 왼쪽, 병원에서 접수하셨다면 오른쪽 버튼을 눌러주세요"]
+    const prompts = ["안녕하세요? 예진을 시작하겠습니다.", "아직 내원 전이시면 왼쪽을, 병원에서 접수하셨다면 오른쪽 버튼을 눌러주세요"]
 
 
     useEffect(() => {
-        Speech.speak(prompts[0], {
-            rate: 0.9,
-            onDone: () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(prompts[1] ?? '', { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 2000);
-            }
-        })
+        speak(prompts[0], () => {
+            Speech.pause();
+            let timer = setTimeout(() => {
+                Speech.speak(prompts[1], { rate: 0.9 });
+                clearTimeout(timer);
+            }, 1000);
+        });
     }, []);
 
     return <SafeAreaView style={styles.container}>
@@ -74,4 +72,4 @@ const SelectScreen = ({ route, navigation }: Props) => {
     </SafeAreaView>
 }
 
-export default SelectScreen;
+export default StartScreen;

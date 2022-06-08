@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
 import { fonts } from "../styles/globalStyles";
-import * as Speech from 'expo-speech'
 
 interface PromptProps {
     children: ReactNode,

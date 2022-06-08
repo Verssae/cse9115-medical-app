@@ -11,11 +11,12 @@ import Human from "../components/Human";
 import { useRecoilValue } from "recoil";
 import { detailSymptoms, symptomsState } from "../recoil/states";
 import * as Speech from 'expo-speech';
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ route, navigation }: Props) => {
-    const { part, index, test } = route.params;    
+    const { part, index, test } = route.params;
     const symptoms = useRecoilValue(detailSymptoms);
     const overviewSymptoms = useRecoilValue(symptomsState);
     const { width } = useWindowDimensions();
@@ -31,9 +32,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
     let verse = `${name} 중에서 어느 부위가 불편하신가요?`;
 
     useEffect(() => {
-        Speech.speak(verse, {
-            rate: 0.9
-        });
+        speak(verse);
     }, []);
 
     return <SafeAreaView style={styles.container}>
@@ -45,7 +44,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
         <View style={[styles.humanContainer, {
             // margin: 15,
         }]} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
-            <Human parts={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} parentDimensions={parentDimensions}/>
+            <Human parts={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} parentDimensions={parentDimensions} />
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -54,17 +53,17 @@ const DetailScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.footer}>
             <Button unit={unit} callback={symptoms.length > 0 ? (
-                overviewSymptoms.length > index + 1 ? 
-                () => navigation.push("Detail", {
-                    part: overviewSymptoms[index+1].name,
-                    index: index + 1,
-                    test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
-                }) :
-                 () => {
-                navigation.navigate("Duration", {
-                    test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
-                })
-            } ): () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
+                overviewSymptoms.length > index + 1 ?
+                    () => navigation.push("Detail", {
+                        part: overviewSymptoms[index + 1].name,
+                        index: index + 1,
+                        test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
+                    }) :
+                    () => {
+                        navigation.navigate("Duration", {
+                            test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
+                        })
+                    }) : () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

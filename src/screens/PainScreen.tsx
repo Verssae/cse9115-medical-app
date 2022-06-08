@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
+import React, { useEffect } from "react";
+import { SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import { basicDimensions, colors, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
 import {Button} from "../components/Button";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
-import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
-import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
 import { useRecoilState } from "recoil";
 import { logState } from "../recoil/states";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Pain'>;
 
@@ -27,16 +26,15 @@ const PainScreen = ({ route, navigation }: Props) => {
     const prompts = ["통증이 얼마나 아프신가요?", "버튼을 좌우로 움직여 통증을 표시해주세요"];
 
     useEffect(() => {
-        Speech.speak(prompts[0], {
-            rate: 0.9,
-            onDone: () => {
+        
+        speak(prompts[0], () => {
                 Speech.pause()
                 let timer = setTimeout(() => {
                     Speech.speak(prompts[1], { rate: 0.9 });
                     clearTimeout(timer);
-                }, 2000);
+                }, 1000);
             }
-        });
+        );
     }, []);
 
     return <SafeAreaView style={styles.container}>

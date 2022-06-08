@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { LayoutChangeEvent, NativeEventEmitter, NativeModules, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { LayoutChangeEvent, SafeAreaView, useWindowDimensions, View } from "react-native";
 import Human from "../components/Human";
-import { basicDimensions, fonts } from "../styles/globalStyles";
+import { basicDimensions } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
 import { Button } from "../components/Button";
 import { symptomsState, strifiedSymptomsState } from "../recoil/states";
@@ -10,7 +10,7 @@ import { humans } from "../data/humans";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
-import * as Speech from 'expo-speech';
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Overview'>;
 
@@ -28,12 +28,10 @@ const SymptomScreen = ({ navigation, route }: Props) => {
         y: 0,
     });
 
-    const prompts: string[] = ["안녕하세요. 마주보고 있는 그림에서, 대략적으로 불편하신 부위를 눌러주세요", "뒤를 보고 있는 그림에서, 대략적으로 불편하신 부위를 눌러주세요"];
+    const prompts: string[] = ["마주보고 있는 그림에서, 불편하신 부위 주변을 눌러주세요", "뒤를 보고 있는 그림에서, 불편하신 부위 주변을 눌러주세요"];
     const prompt = faced? prompts[0] : prompts[1];
     useEffect(() => {
-        Speech.speak(prompt, {
-            rate: 0.9,
-        });
+        speak(prompt);
     },[]);
 
 
@@ -55,9 +53,7 @@ const SymptomScreen = ({ navigation, route }: Props) => {
                     symptoms.length > 0 ? () => navigation.push('Detail', {
                         part: symptoms[0].name,
                         index: 0
-                    }) : () => Speech.speak("하나 이상의 부위를 눌러주세요", {
-                        rate: 0.9,
-                    })
+                    }) : () => speak("하나 이상의 부위를 눌러주세요")
             }>
                 다음
             </Button>

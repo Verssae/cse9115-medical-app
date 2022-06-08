@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
+import React, { useEffect } from "react";
+import { SafeAreaView, Text, useWindowDimensions, View } from "react-native";
 import { basicDimensions, colors, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
-import {Button} from "../components/Button";
+import { Button } from "../components/Button";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
-import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
-import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
 import { logState } from "../recoil/states";
 import { useRecoilState } from "recoil";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Duration'>;
 
@@ -24,20 +23,17 @@ const DurationScreen = ({ route, navigation }: Props) => {
     const unit = width / basicDimensions.width;
 
     const indicators = ['3일 이내', '일주일 이내', '1개월 이내', '3개월 이내', '1년 이내', '1년 이상'];
-    const indices = ['3일', '7일', '1개월', '3개월','1년 이내', '이상'];
+    const indices = ['3일', '7일', '1개월', '3개월', '1년 이내', '이상'];
 
     const prompts = ["언제부터 통증이 시작되었나요?", "버튼을 좌우로 움직여 통증 경과일을 표시해주세요"];
 
     useEffect(() => {
-        Speech.speak(prompts[0], {
-            rate: 0.9,
-            onDone: () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(prompts[1], { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 2000);
-            }
+        speak(prompts[0], () => {
+            Speech.pause();
+            let timer = setTimeout(() => {
+                Speech.speak(prompts[1], { rate: 0.9 });
+                clearTimeout(timer);
+            }, 1000);
         });
     }, []);
 
@@ -66,7 +62,7 @@ const DurationScreen = ({ route, navigation }: Props) => {
                 duration: typeof value === "number" ? value : value[0]
             })} maximumValue={5} minimumValue={0} step={1}
                 renderTrackMarkComponent={(idx) => <View style={{
-                    transform: [{translateY: unit * 10}]
+                    transform: [{ translateY: unit * 10 }]
                 }}><View style={{
                     width: unit * 3,
                     height: unit * 40,
@@ -87,7 +83,7 @@ const DurationScreen = ({ route, navigation }: Props) => {
                 trackMarks={[0, 1, 2, 3, 4, 5]}
 
                 trackStyle={{
-                   
+
                 }} containerStyle={{
                     width: "90%",
                     height: unit * 40,
@@ -99,7 +95,7 @@ const DurationScreen = ({ route, navigation }: Props) => {
                     borderColor: 'black',
                     borderWidth: unit * 3,
                 }} />
-           
+
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -109,7 +105,7 @@ const DurationScreen = ({ route, navigation }: Props) => {
         <View style={styles.footer}>
             <Button unit={unit} callback={() => navigation.navigate('Pain', test ? {
                 test: test
-            } : {}) }>
+            } : {})}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

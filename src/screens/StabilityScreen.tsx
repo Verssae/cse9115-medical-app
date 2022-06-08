@@ -13,6 +13,7 @@ import *  as Speech from 'expo-speech';
 import { elbowFunctionTest } from "../data/selectables";
 import { useRecoilState } from "recoil";
 import { logState } from "../recoil/states";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Stability'>;
 
@@ -27,15 +28,12 @@ const Stability = ({ route, navigation }: Props) => {
     const prompts = ["방금 팔을 움직이실 때 안정적으로 잘 움직이셨나요?", "버튼을 좌우로 움직여 안정성을 표시해주세요"];
 
     useEffect(() => {
-        Speech.speak(prompts[0], {
-            rate: 0.9,
-            onDone: () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(prompts[1], { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 2000);
-            }
+        speak(prompts[0], () => {
+            Speech.pause()
+            let timer = setTimeout(() => {
+                Speech.speak(prompts[1], { rate: 0.9 });
+                clearTimeout(timer);
+            }, 1000);
         });
     }, []);
 

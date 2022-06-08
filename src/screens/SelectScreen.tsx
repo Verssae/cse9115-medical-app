@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { FlatList, SafeAreaView, useWindowDimensions, View } from "react-native";
 import { basicDimensions } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
-import {Button, LargeButton, LargeSingleButton} from "../components/Button";
+import {Button, LargeSingleButton} from "../components/Button";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
-import *  as Speech from 'expo-speech';
-import { useRecoilState, useRecoilValue } from "recoil";
-import { diagnosisState, durationState, medicineState } from "../recoil/states";
-import { historyDiagnosis, historyDuration, medicineQuery } from "../data/selectables";
+import { useRecoilValue } from "recoil";
+import { durationState } from "../recoil/states";
+import { historyDiagnosis, medicineQuery } from "../data/selectables";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Select'>;
 
@@ -22,17 +22,11 @@ const SelectScreen = ({ route, navigation }: Props) => {
     const unit = width / basicDimensions.width;
 
     useEffect(() => {
-        Speech.speak(data.top, {
-            rate: 0.9,
-            onDone: () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(data.bot ?? '', { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 2000);
-            }
-        })
+        speak(data.top);
+        
     }, []);
+
+    
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
@@ -48,7 +42,7 @@ const SelectScreen = ({ route, navigation }: Props) => {
         }}>
             <FlatList
                 data={data.candidates}
-                renderItem={({item}) => <LargeSingleButton name={data.name} unit={unit} callback={() => Speech.speak(item, { rate: 0.9 })}>{item}</LargeSingleButton>}
+                renderItem={({item}) => <LargeSingleButton name={data.name} unit={unit} callback={() => speak(item)}>{item}</LargeSingleButton>}
                 keyExtractor={(item, index) => `${index}`}
             />
         </View>

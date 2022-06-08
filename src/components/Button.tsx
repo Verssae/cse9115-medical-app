@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { StyleSheet, Text, Pressable, TouchableHighlightBase } from "react-native";
+import { StyleSheet, Text, Pressable } from "react-native";
 import { colors, fonts } from "../styles/globalStyles";
 import { diagnosisState, durationState, elbowFunctionState, medicineState } from "../recoil/states";
 import { useRecoilState } from "recoil";

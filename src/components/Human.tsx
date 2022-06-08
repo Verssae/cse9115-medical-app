@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-    Image, StyleSheet, View, LayoutChangeEvent, Pressable, useWindowDimensions, LayoutRectangle
+    Image, View, Pressable, LayoutRectangle
 } from "react-native";
 import { useRecoilState } from "recoil";
 import { Part, ToKorean } from "../data/humans";
 import { detailSymptoms, symptomsState } from "../recoil/states";
 import { colors } from "../styles/globalStyles";
-import * as Speech from 'expo-speech';
+import { speak } from "../utils/speaker";
 
 interface Prop extends Part {
     overview: boolean
@@ -23,15 +23,11 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
         let verse = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name;
         if (symptoms.some(cmp)) {
             
-            Speech.speak(verse + " 취소", {
-                rate: 0.8
-            });
+            speak(verse + " 취소");
             setSymptoms(symptoms.filter(symptom => !cmp(symptom)))
         } else {
             
-            Speech.speak(verse, {
-                rate: 0.8
-            });
+            speak(verse);
             setSymptoms([
                 ...symptoms,
                 { name: name, direction: direction }

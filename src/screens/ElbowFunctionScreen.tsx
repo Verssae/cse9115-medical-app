@@ -2,36 +2,27 @@ import React, { useEffect } from "react";
 import { FlatList, SafeAreaView, useWindowDimensions, View } from "react-native";
 import { basicDimensions } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
-import {Button, LargeButton, LargeSingleButton} from "../components/Button";
+import { Button, LargeButton } from "../components/Button";
 import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
 import { useRecoilState } from "recoil";
 import { durationState } from "../recoil/states";
-import { historyDiagnosis, historyDuration, medicineQuery } from "../data/selectables";
+import { speak } from "../utils/speaker";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ElbowFunction'>;
 
 
 const ElbowFunctionScreen = ({ route, navigation }: Props) => {
-    
+
     const { data } = route.params;
     const [duration, setDuration] = useRecoilState(durationState);
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
     useEffect(() => {
-        Speech.speak(data.top, {
-            rate: 0.9,
-            onDone: () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(data.bot ?? '', { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 2000);
-            }
-        })
+        speak(data.top);
     }, []);
 
     return <SafeAreaView style={styles.container}>
@@ -48,7 +39,7 @@ const ElbowFunctionScreen = ({ route, navigation }: Props) => {
         }}>
             <FlatList
                 data={data.candidates}
-                renderItem={({item}) => <LargeButton unit={unit} callback={() => Speech.speak(item, { rate: 0.9 })}>{item}</LargeButton>}
+                renderItem={({ item }) => <LargeButton unit={unit} callback={() => speak(item)}>{item}</LargeButton>}
             />
         </View>
         <View style={styles.midPrompt}>
