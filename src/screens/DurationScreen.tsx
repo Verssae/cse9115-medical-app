@@ -10,21 +10,23 @@ import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
 import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
-import { useRecoilState } from "recoil";
 import { logState } from "../recoil/symptom";
+import { useRecoilState } from "recoil";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Pain'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Duration'>;
 
-const PainScreen = ({ route, navigation }: Props) => {
+const DurationScreen = ({ route, navigation }: Props) => {
     const { test } = route.params;
+
     const [log, setLog] = useRecoilState(logState);
 
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
-    const indicators = ["거의 없음", "가벼움", "보통", "상당히 아픔", "매우 아픔"]
+    const indicators = ['3일 이내', '일주일 이내', '1개월 이내', '3개월 이내', '1년 이내', '1년 이상'];
+    const indices = ['3일', '7일', '1개월', '3개월','1년 이내', '이상'];
 
-    const prompts = ["통증이 얼마나 아프신가요?", "버튼을 좌우로 움직여 통증을 표시해주세요"];
+    const prompts = ["언제부터 통증이 시작되었나요?", "버튼을 좌우로 움직여 통증 경과일을 표시해주세요"];
 
     useEffect(() => {
         Speech.speak(prompts[0], {
@@ -57,12 +59,12 @@ const PainScreen = ({ route, navigation }: Props) => {
                 textAlign: 'center',
                 marginTop: 10
             }}>
-                {indicators[log.pain-1]}
+                {indicators[log.duration]}
             </Text>
-            <Slider value={log.pain} onValueChange={(value) => setLog({
+            <Slider value={log.duration} onValueChange={(value) => setLog({
                 ...log,
-                pain: typeof value === "number" ? value : value[0]
-            })} maximumValue={5} minimumValue={1} step={1}
+                duration: typeof value === "number" ? value : value[0]
+            })} maximumValue={5} minimumValue={0} step={1}
                 renderTrackMarkComponent={(idx) => <View style={{
                     transform: [{translateY: unit * 10}]
                 }}><View style={{
@@ -80,9 +82,9 @@ const PainScreen = ({ route, navigation }: Props) => {
                         transform: [{
                             translateX: unit * 12
                         }]
-                    }}>{idx+1}</Text>
+                    }}>{indices[idx]}</Text>
                 </View>}
-                trackMarks={[1, 2, 3, 4, 5]}
+                trackMarks={[0, 1, 2, 3, 4, 5]}
 
                 trackStyle={{
                    
@@ -105,7 +107,9 @@ const PainScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={test === 'ElbowTest' ? () => navigation.navigate('ElbowTest') : () => navigation.navigate("EndScreen")}>
+            <Button unit={unit} callback={() => navigation.navigate('Pain', test ? {
+                test: test
+            } : {}) }>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
@@ -115,4 +119,4 @@ const PainScreen = ({ route, navigation }: Props) => {
     </SafeAreaView>
 }
 
-export default PainScreen;
+export default DurationScreen;

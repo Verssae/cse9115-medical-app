@@ -11,6 +11,10 @@ import PainScreen from "./src/screens/PainScreen";
 import SelectScreen from "./src/screens/SelectScreen";
 import StabilityScreen from "./src/screens/StabilityScreen";
 import { ToKorean } from "./src/data/humans";
+import DurationScreen from "./src/screens/DurationScreen";
+import EndScreen from "./src/screens/EndScreen";
+import StartScreen from "./src/screens/StartScreen";
+import ElbowFunctionScreen from "./src/screens/ElbowFunctionScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,7 +34,7 @@ const App = () => {
   return (
     <RecoilRoot>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName="Overview" screenOptions={{
+        <Stack.Navigator initialRouteName="Start" screenOptions={{
           headerStyle: {
             backgroundColor: colors.primary,
           },
@@ -57,6 +61,10 @@ const App = () => {
             component={ElbowTestScreen}
             options={({route}) => ({title: "팔꿈치 움직임 테스트"})} />
             <Stack.Screen
+            name="Duration"
+            component={DurationScreen}
+            options={({route}) => ({title: "통증 경과일 선택"})} />
+            <Stack.Screen
             name="Pain"
             component={PainScreen}
             options={({route}) => ({title: "통증 정도 선택"})} />
@@ -66,9 +74,24 @@ const App = () => {
             component={StabilityScreen}
             />
             <Stack.Screen
-            name="ElbowFunction"
-            options={({route}) => ({title: "팔꿈치 기능 테스트"})}
+            name="Select"
+            options={({route}) => ({title: route.params.data.name})}
             component={SelectScreen}
+            />
+            <Stack.Screen
+            name="ElbowFunction"
+            options={({route}) => ({title: route.params.data.name})}
+            component={ElbowFunctionScreen}
+            />
+            <Stack.Screen
+            name="EndScreen"
+            options={({route}) => ({title: "예진 완료"})}
+            component={EndScreen}
+            />
+            <Stack.Screen
+            name="Start"
+            options={({route}) => ({title: "예진 시작"})}
+            component={StartScreen}
             />
         </Stack.Navigator>
       </NavigationContainer>

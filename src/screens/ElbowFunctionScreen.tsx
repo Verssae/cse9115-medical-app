@@ -7,17 +7,17 @@ import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
-import { useRecoilState, useRecoilValue } from "recoil";
-import { diagnosisState, durationState, medicineState } from "../recoil/symptom";
+import { useRecoilState } from "recoil";
+import { durationState } from "../recoil/symptom";
 import { historyDiagnosis, historyDuration, medicineQuery } from "../data/selectables";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Select'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ElbowFunction'>;
 
 
-const SelectScreen = ({ route, navigation }: Props) => {
+const ElbowFunctionScreen = ({ route, navigation }: Props) => {
     
     const { data } = route.params;
-    const duration = useRecoilValue(durationState);
+    const [duration, setDuration] = useRecoilState(durationState);
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
@@ -48,8 +48,7 @@ const SelectScreen = ({ route, navigation }: Props) => {
         }}>
             <FlatList
                 data={data.candidates}
-                renderItem={({item}) => <LargeSingleButton name={data.name} unit={unit} callback={() => Speech.speak(item, { rate: 0.9 })}>{item}</LargeSingleButton>}
-                keyExtractor={(item, index) => `${index}`}
+                renderItem={({item}) => <LargeButton unit={unit} callback={() => Speech.speak(item, { rate: 0.9 })}>{item}</LargeButton>}
             />
         </View>
         <View style={styles.midPrompt}>
@@ -58,11 +57,7 @@ const SelectScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={data.next === "Overview" ? () => navigation.navigate("Overview", { faced : true }) : data.name === '질환 종류' || duration === '아니요' || duration === '' ? () => navigation.push("Select", {
-                data:  medicineQuery
-            }) : () => navigation.push("Select", {
-                data:  historyDiagnosis
-            })}>
+            <Button unit={unit} callback={() => navigation.navigate("EndScreen")}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>
@@ -72,4 +67,4 @@ const SelectScreen = ({ route, navigation }: Props) => {
     </SafeAreaView>
 }
 
-export default SelectScreen;
+export default ElbowFunctionScreen;

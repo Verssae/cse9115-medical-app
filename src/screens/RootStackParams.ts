@@ -1,4 +1,7 @@
+import { Selectable} from '../data/selectables';
+
 export type RootStackParamList = {
+    Start: undefined;
     Overview: {
         faced: boolean
     };
@@ -6,9 +9,19 @@ export type RootStackParamList = {
         part: string
     };
     ElbowTest: undefined;
+    Duration: {
+        test?: string
+    };
     Pain: {
         test?: string
     };
     Stability: undefined;
-    ElbowFunction: undefined;
+    ElbowFunction: {
+        data: Selectable,
+    };
+    EndScreen: undefined;
+    Select: {
+        data: Selectable,
+    };
+    
 }

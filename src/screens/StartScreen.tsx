@@ -1,0 +1,77 @@
+import React, { useEffect } from "react";
+import { FlatList, SafeAreaView, useWindowDimensions, View } from "react-native";
+import { basicDimensions } from "../styles/globalStyles";
+import Prompt from "../components/Prompt";
+import { Button, LargeButton } from "../components/Button";
+import { styles } from "../styles/screenStyles";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "./RootStackParams";
+import *  as Speech from 'expo-speech';
+import { historyDuration } from "../data/selectables";
+import { useRecoilState } from "recoil";
+import { homeState } from "../recoil/symptom";
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
+
+
+const SelectScreen = ({ route, navigation }: Props) => {
+    const [home, setHome] = useRecoilState(homeState)
+    const { width, height } = useWindowDimensions();
+    const unit = width / basicDimensions.width;
+    const prompts = ["안녕하세요? 예진을 시작하겠습니다.", "아직 내원 전이시면 왼쪽, 병원에서 접수하셨다면 오른쪽 버튼을 눌러주세요"]
+
+
+    useEffect(() => {
+        Speech.speak(prompts[0], {
+            rate: 0.9,
+            onDone: () => {
+                Speech.pause()
+                let timer = setTimeout(() => {
+                    Speech.speak(prompts[1] ?? '', { rate: 0.9 });
+                    clearTimeout(timer);
+                }, 2000);
+            }
+        })
+    }, []);
+
+    return <SafeAreaView style={styles.container}>
+        <View style={styles.topPrompt}>
+            <Prompt numberOfLines={2} unit={unit}>
+                {prompts[0]}
+            </Prompt>
+        </View>
+
+        <View style={{
+            flex: 10,
+            // justifyContent: 'space-around',
+            // alignItems: 'center'
+        }}>
+
+        </View>
+        <View style={styles.midPrompt}>
+            <Prompt numberOfLines={2} unit={unit} underline>
+                {prompts[1]}
+            </Prompt>
+        </View>
+        <View style={styles.footer}>
+            <Button unit={unit} callback={() => {
+                setHome(false);
+                navigation.navigate("Select", {
+                    data: historyDuration,
+                })
+            }}>
+                현장 예진
+            </Button>
+            <Button unit={unit} callback={() => {
+                setHome(true);
+                navigation.navigate("Select", {
+                    data: historyDuration,
+                })
+            }}>
+                미리 예진
+            </Button>
+        </View>
+    </SafeAreaView>
+}
+
+export default SelectScreen;

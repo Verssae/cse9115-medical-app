@@ -10,13 +10,15 @@ import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
 import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
+import { elbowFunctionTest } from "../data/selectables";
+import { useRecoilState } from "recoil";
+import { logState } from "../recoil/symptom";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Stability'>;
 
 const Stability = ({ route, navigation }: Props) => {
-    const [state, setState] = useState({
-        value: 0
-    });
+
+    const [log, setLog] = useRecoilState(logState);
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
 
@@ -55,10 +57,11 @@ const Stability = ({ route, navigation }: Props) => {
                 textAlign: 'center',
                 marginTop: 10
             }}>
-                {indicators[state.value / 5]}
+                {indicators[log.stability / 5]}
             </Text>
-            <Slider value={state.value} onValueChange={(value) => setState({
-                value: typeof value === "number" ? value : value[0]
+            <Slider value={log.stability} onValueChange={(value) => setLog({
+                ...log,
+                stability: typeof value === "number" ? value : value[0]
             })} maximumValue={10} minimumValue={0} step={5}
                 renderTrackMarkComponent={(idx) => <View style={{
                     transform: [{translateY: unit * 10}]
@@ -102,7 +105,9 @@ const Stability = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={() => navigation.navigate('ElbowFunction')}>
+            <Button unit={unit} callback={() => navigation.navigate('ElbowFunction', {
+                data: elbowFunctionTest
+            })}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

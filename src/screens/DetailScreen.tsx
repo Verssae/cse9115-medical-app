@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { LayoutChangeEvent, SafeAreaView, Text, useWindowDimensions, View } from "react-native";
-import { basicDimensions, fonts } from "../styles/globalStyles";
+import { LayoutChangeEvent, SafeAreaView, useWindowDimensions, View } from "react-native";
+import { basicDimensions } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
 import { Button } from "../components/Button";
 import { humans, ToKorean } from "../data/humans";
@@ -9,15 +9,14 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import Human from "../components/Human";
 import { useRecoilValue } from "recoil";
-import { strifiedSymptomsState, symptomsState } from "../recoil/symptom";
+import { detailSymptoms } from "../recoil/symptom";
 import * as Speech from 'expo-speech';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ route, navigation }: Props) => {
-    const { part } = route.params;
-    const strSymptoms = useRecoilValue(strifiedSymptomsState);
-    const symptoms = useRecoilValue(symptomsState);
+    const { part } = route.params;    
+    const symptoms = useRecoilValue(detailSymptoms);
     const { width } = useWindowDimensions();
     const [parentDimensions, setParentDimensions] = useState({
         width: 0,
@@ -26,10 +25,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
         y: 0,
     });
     const unit = width / basicDimensions.width;
-    // navigation.setOptions({
-    //     title: ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part
-    // });
-    // console.log(parentDimensions);
+
     let name = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part;
     let verse = `${name} 중에서 어느 부위가 불편하신가요?`;
 
@@ -48,7 +44,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
         <View style={[styles.humanContainer, {
             // margin: 15,
         }]} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
-            <Human parts={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} parentDimensions={parentDimensions} />
+            <Human parts={humans[part]} baseWidth={humans[part][0].width} baseHeight={humans[part][0].height} parentDimensions={parentDimensions}/>
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
@@ -56,11 +52,11 @@ const DetailScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={() => {
-                navigation.navigate("Pain", {
+            <Button unit={unit} callback={symptoms.length > 0 ? () => {
+                navigation.navigate("Duration", {
                     test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
                 })
-            }}>
+            } : () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

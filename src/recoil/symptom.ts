@@ -1,9 +1,79 @@
 import { atom, selector } from "recoil";
 import { Part, ToKorean } from "../data/humans";
 
+interface Log {
+    duration: number,
+    pain: number,
+    motion: number,
+    stability: number,
+}
+
 export const symptomsState = atom<Pick<Part, 'name' | 'direction'>[]>({
-    key: 'symptomState',
+    key: 'symptomsState',
     default: [],
+});
+
+export const detailSymptoms = atom<Pick<Part, 'name' | 'direction'>[]>({
+    key: 'detailSymptoms',
+    default: [],
+});
+
+export const elbowFunctionState = atom<string[]>({
+    key: 'elbowFunctionState',
+    default: [],
+});
+
+export const durationState = atom<string>({
+    key: 'durationState',
+    default: '',
+});
+
+export const diagnosisState = atom<string>({
+    key: 'diagnosisState',
+    default: '',
+});
+
+export const homeState = atom<boolean>({
+    key: 'homeState',
+    default: false,
+});
+
+export const medicineState = atom<string>({
+    key: 'medicineState',
+    default: '',
+});
+
+export const logState = atom<Log>({
+    key: 'log',
+    default: {
+        duration: 0,
+        pain: 1,
+        motion: 30,
+        stability: 0,
+    }
+});
+
+export const getAllStates = selector({
+    key: 'getAllStates',
+    get: ({ get }) => {
+        const symptoms = get(symptomsState);
+        const details = get(detailSymptoms);
+        const elbowFunction = get(elbowFunctionState);
+        const diagnosisDuration = get(durationState);
+        const diagnosis = get(diagnosisState);
+        const home = get(homeState);
+        const medicine = get(medicineState);
+        const log = get(logState);
+        return ({
+            'home' : home,
+            'medicine': medicine,
+            'diagnosisDuration': diagnosisDuration,
+            'diagnosis': diagnosis,
+            'symptoms' : symptoms,
+            'details' : details,
+            ...log
+        })
+    }
 });
 
 export const strifiedSymptomsState = selector({

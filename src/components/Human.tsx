@@ -4,13 +4,17 @@ import {
 } from "react-native";
 import { useRecoilState } from "recoil";
 import { Part, ToKorean } from "../data/humans";
-import { symptomsState } from "../recoil/symptom";
+import { detailSymptoms, symptomsState } from "../recoil/symptom";
 import { colors } from "../styles/globalStyles";
 import * as Speech from 'expo-speech';
 
-const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled }: Part) => {
+interface Prop extends Part {
+    overview: boolean
+}
+
+const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled, overview } : Prop) => {
     const [selected, setSelected] = useState(false);
-    const [symptoms, setSymptoms] = useRecoilState(symptomsState);
+    const [symptoms, setSymptoms] = overview ? useRecoilState(symptomsState) : useRecoilState(detailSymptoms);
 
     const cmp = (x: Pick<Part, "direction" | "name">) => x.name === name && x.direction === direction
 
@@ -62,11 +66,12 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
     )
 };
 
-const Human = ({ parts, baseWidth, baseHeight, parentDimensions }: {
+const Human = ({ parts, baseWidth, baseHeight, parentDimensions, overview = false }: {
     parts: Part[],
     baseWidth: number,
     baseHeight: number,
-    parentDimensions: LayoutRectangle
+    parentDimensions: LayoutRectangle,
+    overview?: boolean
 }) => {
     let { width, height } = parentDimensions;
     
@@ -82,7 +87,7 @@ const Human = ({ parts, baseWidth, baseHeight, parentDimensions }: {
         }}>
             
             {parts.map((data, i) => (
-                <HumanPartImage key={i} {...{ ...data, width: resize(data.width), height: resize(data.height) }} />
+                <HumanPartImage key={i} {...{ ...data, width: resize(data.width), height: resize(data.height), overview: overview }}/>
             ))}
         </View>
     )

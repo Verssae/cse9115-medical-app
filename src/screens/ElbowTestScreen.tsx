@@ -10,13 +10,14 @@ import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
 import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import * as Speech from 'expo-speech';
+import { useRecoilState } from "recoil";
+import { logState } from "../recoil/symptom";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ElbowTest'>;
 
 const ElbowTestScreen = ({ route, navigation }: Props) => {
-    const [state, setState] = useState({
-        value: 30
-    });
+
+    const [log, setLog] = useRecoilState(logState);
     const { width, height } = useWindowDimensions();
     const unit = width / basicDimensions.width;
     const [parentDimensions, setParentDimensions] = useState({
@@ -51,7 +52,7 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
             margin: 15,
             flex: 7,
         }]} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
-            <Elbow parts={ElbowTest} baseWidth={baseWidth} baseHeight={baseHeight} parentDimensions={parentDimensions} deg={state.value}/>
+            <Elbow parts={ElbowTest} baseWidth={baseWidth} baseHeight={baseHeight} parentDimensions={parentDimensions} deg={log.motion}/>
             
         </View>
         <View style={{
@@ -60,8 +61,9 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
             alignItems: 'center',
             margin: 15
         }}>
-            <Slider value={state.value} onValueChange={(value) => setState({
-                value: typeof value === "number" ? value : value[0]
+            <Slider value={log.motion} onValueChange={(value) => setLog({
+                ...log,
+                motion: typeof value === "number" ? value : value[0]
             })} minimumValue={0} maximumValue={150} step={10}  renderTrackMarkComponent={(idx) => <View style={{
                 transform: [{translateY: unit * 10}]
             }}><View style={{
@@ -102,7 +104,7 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
                 textAlign: 'center',
                 marginTop: 30,                
             }}>
-                {`${state.value.toFixed(0)}도`}
+                {`${log.motion.toFixed(0)}도`}
             </Text>
         </View>
         <View style={[styles.midPrompt, {flex:2}]}>

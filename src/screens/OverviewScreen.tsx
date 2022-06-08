@@ -44,7 +44,7 @@ const SymptomScreen = ({ navigation, route }: Props) => {
             </Prompt>
         </View>
         <View style={styles.humanContainer} onLayout={(e: LayoutChangeEvent) => setParentDimensions(e.nativeEvent.layout)}>
-            <Human parts={humans[direction]} baseWidth={humans[direction][0].width} baseHeight={humans[direction][0].height} parentDimensions={parentDimensions} />
+            <Human parts={humans[direction]} baseWidth={humans[direction][0].width} baseHeight={humans[direction][0].height} parentDimensions={parentDimensions} overview/>
         </View>
 
         <View style={styles.footer}>
@@ -60,9 +60,7 @@ const SymptomScreen = ({ navigation, route }: Props) => {
             }>
                 다음
             </Button>
-            <Button unit={unit} callback={
-                faced ? undefined : () => navigation.goBack()
-            }>
+            <Button unit={unit} callback={ () => navigation.goBack()}>
                 돌아가기
             </Button>
         </View>
