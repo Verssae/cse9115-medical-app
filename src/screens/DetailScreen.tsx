@@ -9,14 +9,15 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import Human from "../components/Human";
 import { useRecoilValue } from "recoil";
-import { detailSymptoms } from "../recoil/symptom";
+import { detailSymptoms, symptomsState } from "../recoil/states";
 import * as Speech from 'expo-speech';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 const DetailScreen = ({ route, navigation }: Props) => {
-    const { part } = route.params;    
+    const { part, index, test } = route.params;    
     const symptoms = useRecoilValue(detailSymptoms);
+    const overviewSymptoms = useRecoilValue(symptomsState);
     const { width } = useWindowDimensions();
     const [parentDimensions, setParentDimensions] = useState({
         width: 0,
@@ -52,11 +53,18 @@ const DetailScreen = ({ route, navigation }: Props) => {
             </Prompt>
         </View>
         <View style={styles.footer}>
-            <Button unit={unit} callback={symptoms.length > 0 ? () => {
+            <Button unit={unit} callback={symptoms.length > 0 ? (
+                overviewSymptoms.length > index + 1 ? 
+                () => navigation.push("Detail", {
+                    part: overviewSymptoms[index+1].name,
+                    index: index + 1,
+                    test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
+                }) :
+                 () => {
                 navigation.navigate("Duration", {
                     test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
                 })
-            } : () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
+            } ): () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

@@ -9,7 +9,7 @@ import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
 import { historyDuration } from "../data/selectables";
 import { useRecoilState } from "recoil";
-import { homeState } from "../recoil/symptom";
+import { homeState } from "../recoil/states";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 

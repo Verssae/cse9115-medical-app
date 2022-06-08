@@ -4,7 +4,7 @@ import Human from "../components/Human";
 import { basicDimensions, fonts } from "../styles/globalStyles";
 import Prompt from "../components/Prompt";
 import { Button } from "../components/Button";
-import { symptomsState, strifiedSymptomsState } from "../recoil/symptom";
+import { symptomsState, strifiedSymptomsState } from "../recoil/states";
 import { useRecoilValue } from "recoil";
 import { humans } from "../data/humans";
 import { styles } from "../styles/screenStyles";
@@ -54,6 +54,7 @@ const SymptomScreen = ({ navigation, route }: Props) => {
                 }) :
                     symptoms.length > 0 ? () => navigation.push('Detail', {
                         part: symptoms[0].name,
+                        index: 0
                     }) : () => Speech.speak("하나 이상의 부위를 눌러주세요", {
                         rate: 0.9,
                     })

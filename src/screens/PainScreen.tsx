@@ -11,7 +11,7 @@ import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
 import { useRecoilState } from "recoil";
-import { logState } from "../recoil/symptom";
+import { logState } from "../recoil/states";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Pain'>;
 

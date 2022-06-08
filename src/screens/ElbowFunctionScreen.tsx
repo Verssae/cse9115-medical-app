@@ -8,7 +8,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
 import { useRecoilState } from "recoil";
-import { durationState } from "../recoil/symptom";
+import { durationState } from "../recoil/states";
 import { historyDiagnosis, historyDuration, medicineQuery } from "../data/selectables";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ElbowFunction'>;

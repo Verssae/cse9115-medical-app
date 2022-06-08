@@ -8,7 +8,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
 import { useRecoilState, useRecoilValue } from "recoil";
-import { diagnosisState, durationState, medicineState } from "../recoil/symptom";
+import { diagnosisState, durationState, medicineState } from "../recoil/states";
 import { historyDiagnosis, historyDuration, medicineQuery } from "../data/selectables";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Select'>;

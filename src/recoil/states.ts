@@ -69,7 +69,7 @@ export const getAllStates = selector({
             'medicine': medicine,
             'diagnosisDuration': diagnosisDuration,
             'diagnosis': diagnosis,
-            'symptoms' : symptoms,
+            'overviews' : symptoms,
             'details' : details,
             ...log
         })

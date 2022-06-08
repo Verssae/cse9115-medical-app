@@ -6,7 +6,9 @@ export type RootStackParamList = {
         faced: boolean
     };
     Detail: {
-        part: string
+        part: string,
+        index: number,
+        test?: string,
     };
     ElbowTest: undefined;
     Duration: {

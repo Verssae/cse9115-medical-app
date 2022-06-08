@@ -4,7 +4,7 @@ import {
 } from "react-native";
 import { useRecoilState } from "recoil";
 import { Part, ToKorean } from "../data/humans";
-import { detailSymptoms, symptomsState } from "../recoil/symptom";
+import { detailSymptoms, symptomsState } from "../recoil/states";
 import { colors } from "../styles/globalStyles";
 import * as Speech from 'expo-speech';
 

@@ -7,7 +7,7 @@ import { styles } from "../styles/screenStyles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "./RootStackParams";
 import *  as Speech from 'expo-speech';
-import { getAllStates, homeState, medicineState } from "../recoil/symptom";
+import { getAllStates, homeState, medicineState } from "../recoil/states";
 import { useRecoilValue } from "recoil";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EndScreen'>;

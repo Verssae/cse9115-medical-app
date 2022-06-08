@@ -10,7 +10,7 @@ import { ElbowTest, baseWidth, baseHeight } from "../data/elbowTest";
 import Elbow from "../components/Elbow";
 import { Slider } from "@miblanchard/react-native-slider";
 import *  as Speech from 'expo-speech';
-import { logState } from "../recoil/symptom";
+import { logState } from "../recoil/states";
 import { useRecoilState } from "recoil";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Duration'>;
