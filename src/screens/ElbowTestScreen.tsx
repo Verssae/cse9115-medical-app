@@ -20,7 +20,7 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
 
     const [log, setLog] = useRecoilState(logState);
     const { width, height } = useWindowDimensions();
-    const unit = width / basicDimensions.width;
+    const unit = width < height ? width / basicDimensions.width : height / basicDimensions.height;
     const [parentDimensions, setParentDimensions] = useState({
         width: 0,
         height: 0,
@@ -31,7 +31,7 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
     const prompts = ["아래 그림과 같이 팔을 굽혀보세요. 아프지 않을 때까지 팔을 얼마나 굽히실 수 있나요?", "버튼을 좌우로 움직여 각도를 표시해주세요"];
 
     useEffect(() => {
-        speak(prompts[0]);
+        speak(prompts.join(' '));
     }, [])
 
     return <SafeAreaView style={styles.container}>
@@ -99,7 +99,7 @@ const ElbowTestScreen = ({ route, navigation }: Props) => {
                 {`${log.motion.toFixed(0)}도`}
             </Text>
         </View>
-        <View style={[styles.midPrompt, { flex: 2 }]}>
+        <View style={[styles.midPrompt, ]}>
             <Prompt numberOfLines={1} unit={unit} underline>
                 {prompts[1]}
             </Prompt>

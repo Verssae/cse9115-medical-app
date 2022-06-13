@@ -23,13 +23,7 @@ const StartScreen = ({ route, navigation }: Props) => {
 
 
     useEffect(() => {
-        speak(prompts[0], () => {
-            Speech.pause();
-            let timer = setTimeout(() => {
-                Speech.speak(prompts[1], { rate: 0.9 });
-                clearTimeout(timer);
-            }, 1000);
-        });
+        speak(prompts.join(' '));
     }, []);
 
     return <SafeAreaView style={styles.container}>

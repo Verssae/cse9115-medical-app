@@ -27,14 +27,7 @@ const PainScreen = ({ route, navigation }: Props) => {
 
     useEffect(() => {
         
-        speak(prompts[0], () => {
-                Speech.pause()
-                let timer = setTimeout(() => {
-                    Speech.speak(prompts[1], { rate: 0.9 });
-                    clearTimeout(timer);
-                }, 1000);
-            }
-        );
+        speak(prompts.join(' '));
     }, []);
 
     return <SafeAreaView style={styles.container}>
@@ -45,15 +38,16 @@ const PainScreen = ({ route, navigation }: Props) => {
         </View>
 
         <View style={{
-            flex: 10,
+            flex: 7,
             justifyContent: 'space-around',
-            alignItems: 'center'
+            alignItems: 'center',
+            margin: 15
         }}>
             <Text style={{
                 fontFamily: fonts.Pretendard_Bold,
                 fontSize: unit * 30,
                 textAlign: 'center',
-                marginTop: 10
+                marginTop: 10,
             }}>
                 {indicators[log.pain-1]}
             </Text>

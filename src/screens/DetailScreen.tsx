@@ -29,16 +29,16 @@ const DetailScreen = ({ route, navigation }: Props) => {
     const unit = width / basicDimensions.width;
 
     let name = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(part) ? ToKorean[part] : part;
-    let verse = `${name} 중에서 어느 부위가 불편하신가요?`;
+    let prompts = [`${name} 중에서 어느 부위가 불편하신가요?`, "불편하신 부위를 모두 눌러주세요"];
 
     useEffect(() => {
-        speak(verse);
+        speak(prompts.join(' '));
     }, []);
 
     return <SafeAreaView style={styles.container}>
         <View style={styles.topPrompt}>
             <Prompt numberOfLines={2} unit={unit}>
-                {verse}
+                {prompts[0]}
             </Prompt>
         </View>
         <View style={[styles.humanContainer, {
@@ -48,7 +48,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
         </View>
         <View style={styles.midPrompt}>
             <Prompt numberOfLines={1} unit={unit} underline>
-                불편하신 부위를 모두 눌러주세요
+                {prompts[1]}
             </Prompt>
         </View>
         <View style={styles.footer}>
@@ -63,7 +63,7 @@ const DetailScreen = ({ route, navigation }: Props) => {
                         navigation.navigate("Duration", {
                             test: symptoms.find(({ name }) => name === "팔꿈치") ? "ElbowTest" : undefined
                         })
-                    }) : () => Speech.speak("하나 이상의 부위를 눌러주세요.", { rate: 0.9 })}>
+                    }) : () => speak("하나 이상의 부위를 눌러주세요.")}>
                 다음
             </Button>
             <Button unit={unit} callback={() => navigation.goBack()}>

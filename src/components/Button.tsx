@@ -38,45 +38,37 @@ export const LargeButton = ({ children, unit, callback }: {
     unit: number,
     callback?: () => void,
 }) => {
-    const [selected, setSelected] = useState(false);
+
     const [selectables, setSelectables] = useRecoilState(elbowFunctionState);
 
-    useEffect(() => {
-
-        if (callback !== undefined) {
-            
-            if (selected) {
+    const toggle = () => {
+        if (!selectables.includes(`${children}`)) {
+            if (callback) {
                 callback();
-                setSelectables([
-                    ...selectables,
-                    `${children}`
-                ]);
-            } else if (selectables.length > 0) {
-                let idx = selectables.findIndex(el => el === `${children}`);
-                setSelectables([
-                    ...selectables.slice(0, idx),
-                    ...selectables.slice(idx + 1),
-                ]);
             }
+            setSelectables([
+                ...selectables,
+                `${children}`
+            ]);
+        } else if (selectables.includes(`${children}`)) {
+            let idx = selectables.findIndex(el => el === `${children}`);
+            setSelectables([
+                ...selectables.slice(0, idx),
+                ...selectables.slice(idx + 1),
+            ]);
         }
-    }, [selected]);
-
-    useEffect(() => {
-        if (selectables.includes(`${children}`)) {
-            setSelected(true);
-        }
-    }, [selectables]);
+    }
 
     return (
-        <Pressable onPressIn={() => setSelected(!selected)} style={[styles.largeButton, {
-            backgroundColor: selected ? colors.primary : colors.white,
+        <Pressable onPressIn={() => toggle()} style={[styles.largeButton, {
+            backgroundColor: selectables.includes(`${children}`) ? colors.primary : colors.white,
             borderRadius: unit * 10,
             margin: 10
         }]}>
             <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.buttonText, {
                 fontSize: unit * 5 + 30,
                 margin: unit * 5 + 5,
-                color: selected ? colors.white : colors.black
+                color: selectables.includes(`${children}`) ? colors.white : colors.black
             }]}>
                 {children}
             </Text>
@@ -90,7 +82,7 @@ export const LargeSingleButton = ({ name, children, unit, callback }: {
     callback?: () => void,
     name: string
 }) => {
-    
+
     const [selectable, setSelectable] = name === '질환 종류' ? useRecoilState(diagnosisState) : name === '병력 유무' ? useRecoilState(durationState) : useRecoilState(medicineState);
 
     const toggle = () => {

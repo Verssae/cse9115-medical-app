@@ -56,14 +56,15 @@ export const logState = atom<Log>({
 export const getAllStates = selector({
     key: 'getAllStates',
     get: ({ get }) => {
-        const symptoms = get(symptomsState);
-        const details = get(detailSymptoms);
+        const symptoms = get(symptomsState).map(({name, direction}) => ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name);
+        const details = get(detailSymptoms).map(({name, direction}) => ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name);
         const elbowFunction = get(elbowFunctionState);
         const diagnosisDuration = get(durationState);
         const diagnosis = get(diagnosisState);
         const home = get(homeState);
         const medicine = get(medicineState);
         const log = get(logState);
+        
         return ({
             'home' : home,
             'medicine': medicine,
@@ -71,6 +72,7 @@ export const getAllStates = selector({
             'diagnosis': diagnosis,
             'overviews' : symptoms,
             'details' : details,
+            'elbowFunction': elbowFunction,
             ...log
         })
     }

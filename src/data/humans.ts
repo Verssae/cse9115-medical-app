@@ -654,8 +654,8 @@ interface TranslateName {
 }
 
 export const ToKorean: TranslateName = {
-    'leftarm': '왼팔',
-    'rightarm': '오른팔',
+    'leftarm': '왼쪽 팔',
+    'rightarm': '오른쪽 팔',
     'leftleg': '왼쪽 다리',
     'rightleg': '오른쪽 다리',
     'back': '등',
@@ -664,5 +664,5 @@ export const ToKorean: TranslateName = {
     'arm': '팔',
     'leg': '다리',
     'left': '왼쪽 ',
-    'right': '오른쪽'
+    'right': '오른쪽 '
 };

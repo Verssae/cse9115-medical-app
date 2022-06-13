@@ -28,13 +28,7 @@ const DurationScreen = ({ route, navigation }: Props) => {
     const prompts = ["언제부터 통증이 시작되었나요?", "버튼을 좌우로 움직여 통증 경과일을 표시해주세요"];
 
     useEffect(() => {
-        speak(prompts[0], () => {
-            Speech.pause();
-            let timer = setTimeout(() => {
-                Speech.speak(prompts[1], { rate: 0.9 });
-                clearTimeout(timer);
-            }, 1000);
-        });
+        speak(prompts.join(' '));
     }, []);
 
     return <SafeAreaView style={styles.container}>
@@ -45,9 +39,10 @@ const DurationScreen = ({ route, navigation }: Props) => {
         </View>
 
         <View style={{
-            flex: 10,
+            flex: 7,
             justifyContent: 'space-around',
-            alignItems: 'center'
+            alignItems: 'center',
+            margin: 15
         }}>
             <Text style={{
                 fontFamily: fonts.Pretendard_Bold,

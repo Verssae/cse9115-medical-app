@@ -12,7 +12,7 @@ interface Prop extends Part {
     overview: boolean
 }
 
-const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled, overview } : Prop) => {
+const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabled, overview }: Prop) => {
     const [selected, setSelected] = useState(false);
     const [symptoms, setSymptoms] = overview ? useRecoilState(symptomsState) : useRecoilState(detailSymptoms);
 
@@ -20,13 +20,14 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
 
     const onPress = () => {
         setSelected(!selected);
-        let verse = ['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name;
+        let verse = overview ? (['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[name] : name) :
+            (['arm', 'leg', 'chest', 'back', 'waist', 'chest'].includes(name) ? ToKorean[(direction ?? '') + name] : direction ? ToKorean[direction] + name : name);
         if (symptoms.some(cmp)) {
-            
+
             speak(verse + " 취소");
             setSymptoms(symptoms.filter(symptom => !cmp(symptom)))
         } else {
-            
+
             speak(verse);
             setSymptoms([
                 ...symptoms,
@@ -38,7 +39,7 @@ const HumanPartImage = ({ uri, name, direction, width, height, left, top, disabl
     useEffect(() => {
         if (symptoms.some(cmp)) {
             setSelected(true);
-            
+
         } else {
             setSelected(false);
         }
@@ -70,8 +71,8 @@ const Human = ({ parts, baseWidth, baseHeight, parentDimensions, overview = fals
     overview?: boolean
 }) => {
     let { width, height } = parentDimensions;
-    
-    width = width * baseHeight / baseWidth > height ? height  * baseWidth / baseHeight : width;
+
+    width = width * baseHeight / baseWidth > height ? height * baseWidth / baseHeight : width;
     height = height * baseWidth / baseHeight > width ? width * baseHeight / baseWidth : height;
 
     const resize = (old: number) => baseWidth > baseHeight ? old * width / baseWidth : old * height / baseHeight;
@@ -81,9 +82,9 @@ const Human = ({ parts, baseWidth, baseHeight, parentDimensions, overview = fals
             width: baseWidth > baseHeight ? width : height * baseWidth / baseHeight,
             height: baseWidth > baseHeight ? width * baseHeight / baseWidth : height,
         }}>
-            
+
             {parts.map((data, i) => (
-                <HumanPartImage key={i} {...{ ...data, width: resize(data.width), height: resize(data.height), overview: overview }}/>
+                <HumanPartImage key={i} {...{ ...data, width: resize(data.width), height: resize(data.height), overview: overview }} />
             ))}
         </View>
     )
