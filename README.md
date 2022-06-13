@@ -30,4 +30,26 @@ A medical app for orthopedic senior patient impressions
 ## Setup
 ### Installation
 1. [React Native](https://reactnative.dev/docs/environment-setup)에서 ios용 설치 가이드를 따라 react native 및 simulator 설치
-2. 
+2. 프로젝트 클론
+```sh
+git clone https://github.com/Verssae/cse9115-medical-app.git
+cd cse9115-medical-app
+npm install
+```
+3. `expo-speech`, `expo-constants`, `expo-web-browser` 패키지를 사용하므로 expo-cli 설치 [참고](https://docs.expo.dev/bare/installing-expo-modules/)
+```sh
+npm install --global expo-cli
+npx install-expo-modules@latest
+expo install expo-constants expo-speech expo-web-browser
+npx pod-install
+```
+### Run
+1. Metro 개발 서버 실행
+```sh
+npx react-native start
+```
+2. Simulator 실행 (혹은 xcode를 사용하여 ios 기기 연결)
+```sh
+npx react-native run-ios # or
+npx react-native run-ios --simulator="iPad Pro (12.9-inch) (5th generation)"
+```
